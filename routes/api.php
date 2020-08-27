@@ -29,25 +29,25 @@ Route::group([
 });
 
 Route::post('/company', 'CompanyController@addCompany');
-Route::put('/updatecompany/{id}', 'CompanyController@updateCompany');
+Route::put('/company/{id}', 'CompanyController@updateCompany');
 
-Route::get('/departments', 'CompanyDepartmentController@getDepartments');
+Route::get('/department', 'CompanyDepartmentController@getDepartments');
 Route::post('/department', 'CompanyDepartmentController@addDepartment');
 
-Route::put('/updatedepartment/{id}', 'CompanyDepartmentController@updateDepartment');
+Route::put('/department/{id}', 'CompanyDepartmentController@updateDepartment');
 
 Route::post('/profile', 'ProfileController@addProfile');
 
-Route::get('/employees', 'EmployeeController@getEmployees');
+Route::get('/employee', 'EmployeeController@getEmployees');
 Route::post('/employee', 'EmployeeController@addEmployee');
-Route::get('/employees/{id}', 'EmployeeController@getEmployee');
+Route::get('/employee/{id}', 'EmployeeController@getEmployee');
 Route::put('/employee/{id}', 'EmployeeController@updateEmployee');
-Route::post('/employeedisabled/{id}', 'EmployeeController@employeeDisabled');
+Route::post('/employee/disabled/{id}', 'EmployeeController@employeeDisabled');
 
-Route::post('/jobdetails', 'JobDetailController@addJobDetails');
-Route::put('/updatejobdetails/{id}', 'JobDetailController@UpdatejobDetails');
+Route::post('/job-details', 'JobDetailController@addJobDetails');
+Route::put('/job-details/{id}', 'JobDetailController@UpdatejobDetails');
 
-Route::post('/contactinfo', 'ContactInfoController@addContactInfo');
-Route::put('/updatecontactinfo/{id}', 'ContactInfoController@updateContactInfo');
+Route::post('/contact-info', 'ContactInfoController@addContactInfo');
+Route::put('/contact-info/{id}', 'ContactInfoController@updateContactInfo');
 
 Route::post('/attendance', 'AttendanceController@addAttendance');

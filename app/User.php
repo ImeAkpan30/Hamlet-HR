@@ -48,18 +48,24 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->getKey();
     }
+
     public function getJWTCustomClaims()
     {
         return [];
     }
-    public function profile(){
+
+    public function profile()
+    {
         return $this->hasOne(Profile::class);
     }
-    public function company(){
+
+    public function company()
+    {
         return $this->hasOne(Company::class);
     }
-    public function employees(){
+
+    public function employees()
+    {
         return $this->hasMany(Employee::class);
     }
-
 }
