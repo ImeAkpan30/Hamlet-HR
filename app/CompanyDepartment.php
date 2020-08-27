@@ -9,7 +9,8 @@ class CompanyDepartment extends Model
 {
     protected $fillable = ['name'];
 
-    public function company(){
+    public function company()
+    {
         return $this->belongsTo(Company::class);
     }
 }

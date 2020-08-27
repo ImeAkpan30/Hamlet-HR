@@ -13,11 +13,13 @@ class Company extends Model
         'company_website', 'company_logo', 'services'
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function companyDepartments(){
+    public function companyDepartments()
+    {
         return $this->hasMany(CompanyDepartment::class);
     }
 }
