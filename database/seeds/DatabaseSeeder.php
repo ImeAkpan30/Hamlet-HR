@@ -18,39 +18,41 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $manager = $this->createUser();
+        foreach (self::managerEmails() as $email) {
+            $manager = $this->createUser(['email' => $email]);
 
-        /**
-         * @var $company Company
-         */
-        $company = $manager->company()
-            ->create(
-                factory(Company::class)
-                    ->make(['no_of_employees' => $no_of_employees = random_int(10, 100)])
-                    ->toArray()
-            );
-
-        collect(self::departments())->each(function (string $name) use ($company) {
-           $company->companyDepartments()->create(
-               factory(CompanyDepartment::class)->make(['name' => $name])->toArray()
-           );
-        });
-
-
-        /**
-         * Employess needs a user_id, so we will create a user model first.
-         */
-        $employees = factory(Employee::class, $no_of_employees)->make();
-
-        $employees->each(function (Employee $employee) {
-            $contactInfos = factory(ContactInfo::class)->make()->toArray();
             /**
-             * @var $newEmployee Employee
+             * @var $company Company
              */
-            $newEmployee = $this->createUser(['email' => $contactInfos['email']])->employees()->create($employee->toArray());
-            $newEmployee->contactInfo()->create($contactInfos);
-            $newEmployee->jobDetails()->create(factory(JobDetail::class)->make()->toArray());
-        });
+            $company = $manager->company()
+                ->create(
+                    factory(Company::class)
+                        ->make(['no_of_employees' => $no_of_employees = random_int(10, 100)])
+                        ->toArray()
+                );
+
+            collect(self::departments())->each(function (string $name) use ($company) {
+                $company->companyDepartments()->create(
+                    factory(CompanyDepartment::class)->make(['name' => $name])->toArray()
+                );
+            });
+
+
+            /**
+             * Employess needs a user_id, so we will create a user model first.
+             */
+            $employees = factory(Employee::class, $no_of_employees)->make();
+
+            $employees->each(function (Employee $employee) {
+                $contactInfos = factory(ContactInfo::class)->make()->toArray();
+                /**
+                 * @var $newEmployee Employee
+                 */
+                $newEmployee = $this->createUser(['email' => $contactInfos['email']])->employees()->create($employee->toArray());
+                $newEmployee->contactInfo()->create($contactInfos);
+                $newEmployee->jobDetails()->create(factory(JobDetail::class)->make()->toArray());
+            });
+        }
     }
 
     protected function createUser(array $data = []): User
@@ -59,6 +61,13 @@ class DatabaseSeeder extends Seeder
         factory(Profile::class)->create(['user_id' => $manager->id]);
 
         return $manager;
+    }
+
+    public static function managerEmails(): array
+    {
+        return [
+            'hr@starthub.com.ng',
+        ];
     }
 
     public static function departments(): array
