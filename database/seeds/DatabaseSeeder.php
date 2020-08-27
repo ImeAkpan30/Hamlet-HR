@@ -18,8 +18,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
-
         $manager = $this->createUser();
 
         /**
@@ -38,7 +36,7 @@ class DatabaseSeeder extends Seeder
            );
         });
 
-        // Lets create Employees
+
         /**
          * Employess needs a user_id, so we will create a user model first.
          */
