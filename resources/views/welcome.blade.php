@@ -105,7 +105,7 @@
                     @endforeach
 
                     <a href="https://documenter.getpostman.com/view/10178764/T1LQh6E4#eaedd81a-4ae8-4137-a257-29b59fd4b26e">API Docs</a>
-                    <a href="https://hamlethr.netlify.app/">Frontend APP</a>
+                    <a href="https://hamlethr.netlify.app">Frontend APP</a>
                 </div>
             </div>
         </div>
