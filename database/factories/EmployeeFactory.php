@@ -18,18 +18,18 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Employee::class, function (Faker $faker) {
+// $factory->define(Employee::class, function (Faker $faker) {
 
-    return [
-        'user_id' => rand(5,15),
-        'first_name' => $faker->name,
-        'other_names' => '',
-        'gender' => $faker->gender,
-        'profile_pic' => asset('images/FOSSA.jpg'),
-        'dob' => $faker->date,
-        'address' => $faker->address,
-        'city' => $faker->city,
-        'qualification' => 'BSc',
+//     return [
+//         'user_id' => rand(5,15),
+//         'first_name' => $faker->name,
+//         'other_names' => '',
+//         'gender' => $faker->gender,
+//         'profile_pic' => asset('images/FOSSA.jpg'),
+//         'dob' => $faker->date,
+//         'address' => $faker->address,
+//         'city' => $faker->city,
+//         'qualification' => 'BSc',
 
-    ];
-});
+//     ];
+// });
