@@ -2,9 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use Url;
 use App\Employee;
-use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
 /*
@@ -18,18 +16,26 @@ use Faker\Generator as Faker;
 |
 */
 
-// $factory->define(Employee::class, function (Faker $faker) {
+$profilePictures = [
+    'http://www.hotavatars.com/wp-content/uploads/2019/01/I80W1Q0.png',
+    'https://koolinus.files.wordpress.com/2019/03/avataaars-e28093-koolinus-1-12mar2019.png',
+    'http://happyfacesparty.com/wp-content/uploads/2019/06/avataaars-Frances.png',
+];
 
-//     return [
-//         'user_id' => rand(5,15),
-//         'first_name' => $faker->name,
-//         'other_names' => '',
-//         'gender' => $faker->gender,
-//         'profile_pic' => asset('images/FOSSA.jpg'),
-//         'dob' => $faker->date,
-//         'address' => $faker->address,
-//         'city' => $faker->city,
-//         'qualification' => 'BSc',
+$sampleQualigications = [
+    'OND', 'HND', 'Degree', 'Masters', 'PhD'
+];
 
-//     ];
-// });
+$factory->define(Employee::class, function (Faker $faker) use ($sampleQualigications, $profilePictures) {
+    return [
+        'user_id' => rand(5,15),
+        'first_name' => $faker->name,
+        'other_names' => '',
+        'gender' => collect(['male', 'female'])->random(),
+        'profile_pic' => collect($profilePictures)->random(),
+        'dob' => $faker->date,
+        'address' => $faker->address,
+        'city' => $faker->city,
+        'qualification' => collect($sampleQualigications)->random(),
+    ];
+});

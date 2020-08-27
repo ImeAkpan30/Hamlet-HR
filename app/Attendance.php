@@ -8,7 +8,8 @@ class Attendance extends Model
 {
     protected $fillable = ['attendance_status', 'date'];
 
-    public function employee(){
+    public function employee()
+    {
         return $this->belongsTo(Employee::class);
     }
 }
