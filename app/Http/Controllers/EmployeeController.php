@@ -17,7 +17,9 @@ class EmployeeController extends Controller
             return response()->json(['message' => 'Unauthorized!'], 401);
 
          }
-        $employees = Employee::where('user_id',$id)
+         $auth_id = User::where('id',Auth::user()->id)->pluck('id')->first();
+        $employees = Employee::where('company_id',$id)
+        ->where('user_id',$auth_id)
         ->with('jobDetails')
         ->with('contactInfo')
         ->get();
