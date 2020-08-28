@@ -12,8 +12,15 @@ use URL;
 
 class EmployeeController extends Controller
 {
-    public function getEmployees() {
-        $employees = Employee::all();
+    public function getEmployee($id) {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+
+         }
+        $employees = Employee::where('user_id',$id)
+        ->with('jobDetails')
+        ->with('contactInfo')
+        ->get();
         return response()->json($employees, 200);
     }
 
@@ -69,16 +76,6 @@ class EmployeeController extends Controller
               ], 200);
     }
 
-    public function getEmployee($id){
-        if (Employee::where('id', $id)->exists()) {
-            $employee = Employee::where('id', $id)->get();
-            return response()->json($employee, 200);
-          } else {
-            return response()->json([
-              "message" => "Employee not found"
-            ], 404);
-          }
-        }
 
     public function updateEmployee(Request $request, $id){
         if (!Auth::check()) {

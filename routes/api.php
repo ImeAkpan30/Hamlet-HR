@@ -39,6 +39,8 @@ Route::put('/department/{id}', 'CompanyDepartmentController@updateDepartment');
 Route::post('/profile', 'ProfileController@addProfile');
 Route::post('/profile/{id}', 'ProfileController@updateProfile');
 
+
+
 Route::get('/employee', 'EmployeeController@getEmployees');
 Route::post('/employee', 'EmployeeController@addEmployee');
 Route::get('/employee/{id}', 'EmployeeController@getEmployee');
