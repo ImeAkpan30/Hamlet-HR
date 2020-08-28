@@ -10,8 +10,11 @@ use Illuminate\Support\Facades\Auth;
 class CompanyDepartmentController extends Controller
 {
 
-    public function getDepartments() {
-        $departments = CompanyDepartment::all();
+    public function getDepartments($id) {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+         }
+        $departments = CompanyDepartment::where('company_id',$id)->get();
         return response()->json($departments, 200);
     }
 
@@ -19,14 +22,13 @@ class CompanyDepartmentController extends Controller
     {
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized!'], 401);
-
          }
         $this->validate($request,[
             'name'=>'required',
         ]);
 
         $company_id = Company::where('user_id',Auth::user()->id)->pluck('id')->first();
-        $companyDept = new CompanyDepartment;
+        $companyDept = new CompanyDepartment();
         $companyDept->name = $request->input('name');
         $companyDept->company_id = $company_id;
 
