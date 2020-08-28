@@ -31,7 +31,7 @@ Route::group([
 Route::post('/company', 'CompanyController@addCompany');
 Route::post('/company/{id}', 'CompanyController@updateCompany');
 
-Route::get('/department', 'CompanyDepartmentController@getDepartments');
+Route::get('/department/{id}', 'CompanyDepartmentController@getDepartments');
 Route::post('/department', 'CompanyDepartmentController@addDepartment');
 
 Route::put('/department/{id}', 'CompanyDepartmentController@updateDepartment');
