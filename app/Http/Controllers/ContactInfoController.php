@@ -54,7 +54,7 @@ class ContactInfoController extends Controller
             $contactInfo->save();
             return response()->json([
                 "status" => "success",
-                "message" => "Contact Info Added Successfully!"
+                "message" => "Contact Info Updated Successfully!"
               ], 200);
     }
 }

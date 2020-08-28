@@ -81,7 +81,7 @@ class JobDetailController extends Controller
             $jobDetail->save();
             return response()->json([
                 "status" => "success",
-                "message" => "Job Details Added Successfully!"
+                "message" => "Job Details Updated Successfully!"
               ], 200);
     }
 }
