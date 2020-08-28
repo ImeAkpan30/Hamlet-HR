@@ -41,14 +41,14 @@ class DatabaseSeeder extends Seeder
             /**
              * Employess needs a user_id, so we will create a user model first.
              */
-            $employees = factory(Employee::class, $no_of_employees)->make(['user_id' => $manager->id]);
+            $employees = factory(Employee::class, $no_of_employees)->make();
 
-            $employees->each(function (Employee $employee) {
+            $employees->each(function (Employee $employee) use ($manager) {
                 $contactInfos = factory(ContactInfo::class)->make()->toArray();
                 /**
                  * @var $newEmployee Employee
                  */
-                $newEmployee = $this->createUser(['email' => $contactInfos['email']])->employees()->create($employee->toArray());
+                $newEmployee = $manager->employees()->create($employee->toArray());
                 $newEmployee->contactInfo()->create($contactInfos);
                 $newEmployee->jobDetails()->create(factory(JobDetail::class)->make()->toArray());
             });
