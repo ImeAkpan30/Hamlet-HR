@@ -62,7 +62,8 @@ class CompanyController extends Controller
                 "message" => "Company Details Added Successfully!"
               ], 200);
     }
-    public function updateCompany(Request $request,$id){
+
+    public function updateCompany(Request $request, $id){
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized!'], 401);
 
@@ -81,19 +82,20 @@ class CompanyController extends Controller
             'services'=>'required'
         ]);
 
-        $id = User::where('id',Auth::user()->id)->pluck('id')->first();
-        $company = Company::find($id);
-        $company->company_name = $request->input('company_name');
-        $company->user_id = $id;
-        $company->company_address = $request->input('company_address');
-        $company->company_email = $request->input('company_email');
-        $company->company_phone = $request->input('company_phone');
-        $company->no_of_employees = $request->input('no_of_employees');
-        $company->city = $request->input('city');
-        $company->state = $request->input('state');
-        $company->zip_code = $request->input('zip_code');
-        $company->company_website = $request->input('company_website');
-        $company->services = $request->input('services');
+        if (Company::where('id', $id)->exists()) {
+            $company = Company::find($id);
+
+            $company->company_name = $request->input('company_name');
+            $company->company_address = $request->input('company_address');
+            $company->company_email = $request->input('company_email');
+            $company->company_phone = $request->input('company_phone');
+            $company->no_of_employees = $request->input('no_of_employees');
+            $company->city = $request->input('city');
+            $company->state = $request->input('state');
+            $company->zip_code = $request->input('zip_code');
+            $company->company_website = $request->input('company_website');
+            $company->services = $request->input('services');
+
 
         if($request->hasFile('company_logo')){
             $file = $request->file('company_logo');
@@ -105,12 +107,30 @@ class CompanyController extends Controller
             $company->company_logo = null;
         }
 
+        $data = array(
+            'company_name' => $company->company_name,
+            'company_address' => $company->company_address,
+            'company_email' => $company->company_email,
+            'company_phone' => $company->company_phone,
+            'no_of_employees' => $company->no_of_employees,
+            'city' => $company->city,
+            'state' => $company->state,
+            'zip_code' => $company->zip_code,
+            'company_website' => $company->company_website,
+            'services' => $company->services,
+            'company_logo' => $company->company_logo,
+        );
 
-            $company->save();
+        }
+
+        Company::where('id', $id)->update($data);
+        $company->update();
+
             return response()->json([
                 "status" => "success",
-                "message" => "Company Details Added Successfully!"
+                "message" => "Company Updated Successfully!", $company
               ], 200);
+
     }
 
 }

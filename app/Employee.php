@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    protected $fillable = ['first_name', 'other_names', 'gender', 'dob', 'address', 'city', 'age', 'qualification'];
+    protected $fillable = ['first_name', 'other_names', 'gender', 'dob', 'address', 'city', 'qualification'];
 
     public function user()
     {

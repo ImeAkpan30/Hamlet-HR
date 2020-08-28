@@ -29,7 +29,7 @@ Route::group([
 });
 
 Route::post('/company', 'CompanyController@addCompany');
-Route::put('/company/{id}', 'CompanyController@updateCompany');
+Route::post('/company/{id}', 'CompanyController@updateCompany');
 
 Route::get('/department', 'CompanyDepartmentController@getDepartments');
 Route::post('/department', 'CompanyDepartmentController@addDepartment');
@@ -37,11 +37,12 @@ Route::post('/department', 'CompanyDepartmentController@addDepartment');
 Route::put('/department/{id}', 'CompanyDepartmentController@updateDepartment');
 
 Route::post('/profile', 'ProfileController@addProfile');
+Route::post('/profile/{id}', 'ProfileController@updateProfile');
 
 Route::get('/employee', 'EmployeeController@getEmployees');
 Route::post('/employee', 'EmployeeController@addEmployee');
 Route::get('/employee/{id}', 'EmployeeController@getEmployee');
-Route::put('/employee/{id}', 'EmployeeController@updateEmployee');
+Route::post('/employee/{id}', 'EmployeeController@updateEmployee');
 Route::post('/employee/disabled/{id}', 'EmployeeController@employeeDisabled');
 
 Route::post('/job-details', 'JobDetailController@addJobDetails');

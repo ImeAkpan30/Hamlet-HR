@@ -30,7 +30,6 @@ class EmployeeController extends Controller
             'dob'=>'required|date',
             'address'=>'required',
             'city'=>'required',
-            'age'=>'required',
             'qualification'=>'required',
             'profile_pic'=>'image|mimes:jpeg,png|nullable',
         ]);
@@ -44,17 +43,8 @@ class EmployeeController extends Controller
         $employee->dob = $request->input('dob');
         $employee->address = $request->input('address');
         $employee->city = $request->input('city');
-        $employee->age = $request->input('age');
         $employee->qualification = $request->input('qualification');
 
-        // if($request->hasFile('profile_pic')){
-        //     $file = $request->file('profile_pic')->store('pictures','public');
-        //     $image = Image::make(public_path("storage/{$file}"));
-        //     $image->save();
-        //     $employee->profile_pic = $file;
-        // }else{
-        //     $employee->profile_pic = null;
-        // }
         if($request->hasFile('profile_pic')){
             $file = $request->file('profile_pic');
 
@@ -102,7 +92,6 @@ class EmployeeController extends Controller
             'dob'=>'required',
             'address'=>'required',
             'city'=>'required',
-            'age'=>'required',
             'qualification'=>'required',
             'profile_pic'=>'image|mimes:jpeg,png,jpg,svg|nullable',
         ]);
@@ -116,7 +105,6 @@ class EmployeeController extends Controller
             $employee->dob = $request->input('dob');
             $employee->address = $request->input('address');
             $employee->city = $request->input('city');
-            $employee->age = $request->input('age');
             $employee->qualification = $request->input('qualification');
 
         if($request->hasFile('profile_pic')){
@@ -136,7 +124,6 @@ class EmployeeController extends Controller
             'dob' => $employee->dob,
             'address' => $employee->address,
             'city' => $employee->city,
-            'age' => $employee->age,
             'qualification' => $employee->qualification,
             'profile_pic' => $employee->profile_pic,
         );
