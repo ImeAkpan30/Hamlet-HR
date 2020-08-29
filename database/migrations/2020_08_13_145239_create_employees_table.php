@@ -16,6 +16,7 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('company_id');
             $table->string('first_name');
             $table->string('other_names');
             $table->string('gender');
@@ -26,6 +27,7 @@ class CreateEmployeesTable extends Migration
             $table->string('qualification');
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
     }

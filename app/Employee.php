@@ -4,6 +4,7 @@ namespace App;
 
 use App\User;
 use App\Company;
+use App\Employee;
 use App\JobDetail;
 use App\ContactInfo;
 use Illuminate\Database\Eloquent\Model;

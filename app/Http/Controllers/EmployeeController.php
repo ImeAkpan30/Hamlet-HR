@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\User;
 use App\Employee;
 use Illuminate\Http\Request;
@@ -44,10 +45,12 @@ class EmployeeController extends Controller
         ]);
 
         $id = User::where('id',Auth::user()->id)->pluck('id')->first();
+        $company_id = Company::where('user_id',Auth::user()->id)->pluck('id')->first();
         $employee = new Employee;
         $employee->first_name = $request->input('first_name');
         $employee->other_names = $request->input('other_names');
         $employee->user_id = $id;
+        $employee->company_id = $company_id;
         $employee->gender = $request->input('gender');
         $employee->dob = $request->input('dob');
         $employee->address = $request->input('address');
@@ -96,12 +99,14 @@ class EmployeeController extends Controller
         ]);
 
         if (Employee::where('id', $id)->exists()) {
-            $employee = Employee::find($id);
+            $company_id = Company::where('user_id',Auth::user()->id)->pluck('id')->first();
 
+            $employee = Employee::find($id);
             $employee->first_name = $request->input('first_name');
             $employee->other_names = $request->input('other_names');
             $employee->gender = $request->input('gender');
             $employee->dob = $request->input('dob');
+             $employee->company_id = $company_id; 
             $employee->address = $request->input('address');
             $employee->city = $request->input('city');
             $employee->qualification = $request->input('qualification');
