@@ -79,6 +79,7 @@ class AuthController extends Controller
         ->with('employees')
         ->with('employees.jobDetails')
         ->with('employees.contactInfo')
+        ->with('company.companyDepartments')
         ->first();
         return response()->json($user, 200);
     }
