@@ -18,9 +18,18 @@ class EmployeeController extends Controller
             return response()->json(['message' => 'Unauthorized!'], 401);
 
          }
-         $auth_id = User::where('id',Auth::user()->id)->pluck('id')->first();
-        $employees = Employee::where('company_id',$id)
-        ->where('user_id',$auth_id)
+        $employees = Employee::where('user_id',$id)
+        ->with('jobDetails')
+        ->with('contactInfo')
+        ->get();
+        return response()->json($employees, 200);
+    }
+    public function getSingleEmployee($id) {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+
+         }
+        $employees = Employee::where('id',$id)
         ->with('jobDetails')
         ->with('contactInfo')
         ->get();
@@ -77,8 +86,7 @@ class EmployeeController extends Controller
             //    }
             return response()->json([
                 "status" => "success",
-                "message" => "Employee Added Successfully!",
-                 $employee
+                "message" => "Employee Added Successfully!", $employee
               ], 200);
     }
 
