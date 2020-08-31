@@ -46,18 +46,17 @@ class ContactInfoController extends Controller
             'emergency_contact'=>'required',
         ]);
 
-        $employee_id = Employee::where('user_id',Auth::user()->id)->pluck('id')->first();
+//         $employee_id = Employee::where('user_id',Auth::user()->id)->pluck('id')->first();
         $contactInfo =ContactInfo::find($id);
         $contactInfo->phone = $request->input('phone');
-        $contactInfo->employee_id = $employee_id;
+        $contactInfo->employee_id =$request->input('employee_id');
         $contactInfo->email = $request->input('email');
         $contactInfo->emergency_contact = $request->input('emergency_contact');
 
             $contactInfo->save();
             return response()->json([
                 "status" => "success",
-                "message" => "Contact Info Added Successfully!",
-                $contactInfo
+                "message" => "Contact Info Updated Successfully!"
               ], 200);
     }
 }
