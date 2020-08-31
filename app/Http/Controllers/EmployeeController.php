@@ -13,6 +13,18 @@ use URL;
 
 class EmployeeController extends Controller
 {
+    public function getEmployees() {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+
+         }
+         $employees = User::where('id',Auth::user()->id)
+         ->with('employees.jobDetails')
+        ->with('employees.contactInfo')
+         ->first();
+        return response()->json($employees, 200);
+    }
+
     public function getEmployee($id) {
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized!'], 401);
@@ -106,7 +118,7 @@ class EmployeeController extends Controller
             $employee->other_names = $request->input('other_names');
             $employee->gender = $request->input('gender');
             $employee->dob = $request->input('dob');
-             $employee->company_id = $company_id; 
+             $employee->company_id = $company_id;
             $employee->address = $request->input('address');
             $employee->city = $request->input('city');
             $employee->qualification = $request->input('qualification');
