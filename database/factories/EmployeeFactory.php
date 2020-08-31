@@ -29,8 +29,8 @@ $sampleQualifications = [
 $factory->define(Employee::class, function (Faker $faker) use ($sampleQualifications, $profilePictures) {
     return [
         'user_id' => rand(5,15),
-        'first_name' => $faker->name,
-        'other_names' => '',
+        'first_name' => $faker->firstName,
+        'other_names' => $faker->lastName,
         'gender' => collect(['male', 'female'])->random(),
         'profile_pic' => collect($profilePictures)->random(),
         'dob' => $faker->date,
