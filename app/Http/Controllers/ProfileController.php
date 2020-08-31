@@ -44,7 +44,8 @@ class ProfileController extends Controller
             $profile->save();
             return response()->json([
                 "status" => "success",
-                "message" => "Profile Added Successfully!"
+                "message" => "Profile Added Successfully!",
+                'profile' => $profile
               ], 200);
     }
 
@@ -91,7 +92,8 @@ class ProfileController extends Controller
 
             return response()->json([
                 "status" => "success",
-                "message" => "Profile Updated Successfully!", $profile
+                "message" => "Profile Updated Successfully!",
+                'profile' => $profile
               ], 200);
 
     }
