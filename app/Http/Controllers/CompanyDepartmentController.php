@@ -18,7 +18,9 @@ class CompanyDepartmentController extends Controller
          }
          $company_id=Employee::where('id',$id)->pluck('company_id')->first();
         $departments = CompanyDepartment::where('company_id',$company_id)->get();
-        return response()->json($departments, 200);
+        return response()->json([
+            'departments' => $departments
+        ],);
     }
 
     public function addDepartment(Request $request)
@@ -39,7 +41,8 @@ class CompanyDepartmentController extends Controller
             $companyDept->save();
             return response()->json([
                 "status" => "success",
-                "message" => "Company Department Added Successfully!"
+                "message" => "Company Department Added Successfully!",
+                'department' => $companyDept
               ], 200);
     }
 
@@ -61,7 +64,8 @@ class CompanyDepartmentController extends Controller
             $companyDept->save();
             return response()->json([
                 "status" => "success",
-                "message" => "Company Department Updated Successfully!"
+                "message" => "Company Department Updated Successfully!",
+                'department' => $companyDept
               ], 200);
     }
 

@@ -26,7 +26,7 @@ class CreateCompaniesTable extends Migration
             $table->string('company_website');
             $table->string('no_of_employees');
             $table->string('company_logo')->nullable();
-            $table->string('services');
+            $table->longText('services');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
