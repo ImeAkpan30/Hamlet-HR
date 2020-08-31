@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Company;
+use App\Employee;
 use App\CompanyDepartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,11 @@ class CompanyDepartmentController extends Controller
 {
 
     public function getDepartments($id) {
-        $departments = CompanyDepartment::where('company_id',$id)->get();
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+         }
+         $company_id=Employee::where('id',$id)->pluck('company_id')->first();
+        $departments = CompanyDepartment::where('company_id',$company_id)->get();
         return response()->json($departments, 200);
     }
 

@@ -20,17 +20,19 @@ class ContactInfoController extends Controller
             'emergency_contact'=>'required',
         ]);
 
-        $employee_id = Employee::where('user_id',Auth::user()->id)->pluck('id')->first();
-        $contactInfo = new ContactInfo;
+        $contactInfo = new ContactInfo();
         $contactInfo->phone = $request->input('phone');
-        $contactInfo->employee_id = $employee_id;
+        $contactInfo->employee_id =$request->input('employee_id');
         $contactInfo->email = $request->input('email');
         $contactInfo->emergency_contact = $request->input('emergency_contact');
+// 1325 1325
+// 3150
 
             $contactInfo->save();
             return response()->json([
                 "status" => "success",
-                "message" => "Contact Info Added Successfully!"
+                "message" => "Contact Info Added Successfully!",
+                $contactInfo
               ], 200);
     }
     public function updateContactInfo(Request $request,$id){
@@ -44,10 +46,10 @@ class ContactInfoController extends Controller
             'emergency_contact'=>'required',
         ]);
 
-        $employee_id = Employee::where('user_id',Auth::user()->id)->pluck('id')->first();
+//         $employee_id = Employee::where('user_id',Auth::user()->id)->pluck('id')->first();
         $contactInfo =ContactInfo::find($id);
         $contactInfo->phone = $request->input('phone');
-        $contactInfo->employee_id = $employee_id;
+        $contactInfo->employee_id =$request->input('employee_id');
         $contactInfo->email = $request->input('email');
         $contactInfo->emergency_contact = $request->input('emergency_contact');
 
