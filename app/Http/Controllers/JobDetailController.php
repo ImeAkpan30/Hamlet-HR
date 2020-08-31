@@ -26,10 +26,10 @@ class JobDetailController extends Controller
             'work_location'=>'required',
         ]);
 
-        $employee_id = Employee::where('user_id',Auth::user()->id)->pluck('id')->first();
-        $jobDetail = new JobDetail;
+        // $employee_id = Employee::where('user_id',Auth::user()->id)->pluck('id')->first();
+        $jobDetail = new JobDetail();
         $jobDetail->employment_type = $request->input('employment_type');
-        $jobDetail->employee_id = $employee_id;
+        $jobDetail->employee_id = $request->input('employee_id');
         $jobDetail->job_title = $request->input('job_title');
         $jobDetail->salary = $request->input('salary');
         $jobDetail->date_hired = $request->input('date_hired');
@@ -44,7 +44,8 @@ class JobDetailController extends Controller
             return response()->json([
                 "status" => "success",
                 "message" => "Job Details Added Successfully!"
-              ], 200);
+                ,$jobDetail
+             ], 200);
     }
 
     public function updatejobDetails(Request $request,$id){
@@ -82,6 +83,7 @@ class JobDetailController extends Controller
             return response()->json([
                 "status" => "success",
                 "message" => "Job Details Added Successfully!"
-              ], 200);
+                ,$jobDetail
+            ], 200);
     }
 }
