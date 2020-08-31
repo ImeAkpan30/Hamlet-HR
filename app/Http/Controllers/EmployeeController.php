@@ -36,8 +36,30 @@ class EmployeeController extends Controller
         ->with('jobDetails')
         ->with('contactInfo')
         ->get();
-        return response()->json($employees, 200);
+        return response()->json([
+            'employee' => $employees
+        ],200);
     }
+
+    public function getSingleEmployee($id){
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+
+         }
+        if (Employee::where('id', $id)->exists()) {
+            $employee = Employee::where('id', $id)
+            ->with('jobDetails')
+            ->with('contactInfo')
+            ->get();
+            return response()->json([
+                'employee' => $employee
+            ], 200);
+          } else {
+            return response()->json([
+              "message" => "Employee not found"
+            ], 404);
+          }
+        }
 
     public function addEmployee(Request $request){
         if (!Auth::check()) {
@@ -153,7 +175,7 @@ class EmployeeController extends Controller
             return response()->json([
                 "status" => "success",
                 "message" => "Employee Updated Successfully!",
-                $employee
+                'employee' => $employee
               ], 200);
 
     }
