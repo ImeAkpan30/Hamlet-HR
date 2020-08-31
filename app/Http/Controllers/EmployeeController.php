@@ -46,7 +46,7 @@ class EmployeeController extends Controller
 
         $id = User::where('id',Auth::user()->id)->pluck('id')->first();
         $company_id = Company::where('user_id',Auth::user()->id)->pluck('id')->first();
-        $employee = new Employee;
+        $employee = new Employee();
         $employee->first_name = $request->input('first_name');
         $employee->other_names = $request->input('other_names');
         $employee->user_id = $id;
@@ -77,7 +77,8 @@ class EmployeeController extends Controller
             //    }
             return response()->json([
                 "status" => "success",
-                "message" => "Employee Added Successfully!", $employee
+                "message" => "Employee Added Successfully!",
+                 $employee
               ], 200);
     }
 
@@ -106,7 +107,7 @@ class EmployeeController extends Controller
             $employee->other_names = $request->input('other_names');
             $employee->gender = $request->input('gender');
             $employee->dob = $request->input('dob');
-             $employee->company_id = $company_id; 
+             $employee->company_id = $company_id;
             $employee->address = $request->input('address');
             $employee->city = $request->input('city');
             $employee->qualification = $request->input('qualification');
@@ -139,7 +140,8 @@ class EmployeeController extends Controller
 
             return response()->json([
                 "status" => "success",
-                "message" => "Employee Updated Successfully!", $employee
+                "message" => "Employee Updated Successfully!",
+                $employee
               ], 200);
 
     }

@@ -52,5 +52,4 @@ Route::put('/job-details/{id}', 'JobDetailController@UpdatejobDetails');
 
 Route::post('/contact-info', 'ContactInfoController@addContactInfo');
 Route::put('/contact-info/{id}', 'ContactInfoController@updateContactInfo');
-
 Route::post('/attendance', 'AttendanceController@addAttendance');
