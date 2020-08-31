@@ -39,7 +39,6 @@ class JobDetailController extends Controller
         $jobDetail->employment_classification = $request->input('employment_classification');
         $jobDetail->work_location = $request->input('work_location');
 
-
             $jobDetail->save();
             return response()->json([
                 "status" => "success",
