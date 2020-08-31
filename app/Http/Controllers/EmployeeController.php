@@ -90,7 +90,7 @@ class EmployeeController extends Controller
             return response()->json([
                 "status" => "success",
                 "message" => "Employee Added Successfully!",
-                 $employee
+                'employee' => $employee
               ], 200);
     }
 
