@@ -44,7 +44,7 @@ Route::post('/profile/{id}', 'ProfileController@updateProfile');
 Route::get('/employee', 'EmployeeController@getEmployees');
 Route::post('/employee', 'EmployeeController@addEmployee');
 Route::get('/employee/{id}', 'EmployeeController@getEmployee');
-Route::get('/getemployee/{id}', 'EmployeeController@getSingleEmployee');//here
+Route::get('/employees/{id}', 'EmployeeController@getSingleEmployee');//here
 Route::post('/employee/{id}', 'EmployeeController@updateEmployee');
 Route::post('/employee/disabled/{id}', 'EmployeeController@employeeDisabled');
 
