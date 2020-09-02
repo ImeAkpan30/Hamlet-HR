@@ -20,6 +20,5 @@ Route::get('/', function () {
 Route::get('/deploy', function () {
     $rootDir = base_path();
     exec("cd $rootDir && git pull origin master", $output);
-
     dump($output);
 });
