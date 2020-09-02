@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome', ['emails' => DatabaseSeeder::managerEmails()]);
 });
+
+Route::get('/deploy', function () {
+    $rootDir = base_path();
+    exec("cd $rootDir && git pull origin master", $output);
+
+    dump($output);
+});
