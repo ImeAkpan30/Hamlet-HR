@@ -22,20 +22,20 @@ $profilePictures = [
     'http://happyfacesparty.com/wp-content/uploads/2019/06/avataaars-Frances.png',
 ];
 
-$sampleQualigications = [
+$sampleQualifications = [
     'OND', 'HND', 'Degree', 'Masters', 'PhD'
 ];
 
-$factory->define(Employee::class, function (Faker $faker) use ($sampleQualigications, $profilePictures) {
+$factory->define(Employee::class, function (Faker $faker) use ($sampleQualifications, $profilePictures) {
     return [
         'user_id' => rand(5,15),
-        'first_name' => $faker->name,
-        'other_names' => '',
+        'first_name' => $faker->firstName,
+        'other_names' => $faker->lastName,
         'gender' => collect(['male', 'female'])->random(),
         'profile_pic' => collect($profilePictures)->random(),
         'dob' => $faker->date,
         'address' => $faker->address,
         'city' => $faker->city,
-        'qualification' => collect($sampleQualigications)->random(),
+        'qualification' => collect($sampleQualifications)->random(),
     ];
 });

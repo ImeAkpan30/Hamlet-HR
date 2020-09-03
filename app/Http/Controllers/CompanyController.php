@@ -59,7 +59,8 @@ class CompanyController extends Controller
             $company->save();
             return response()->json([
                 "status" => "success",
-                "message" => "Company Details Added Successfully!"
+                "message" => "Company Details Added Successfully!",
+                'company' => $company
               ], 200);
     }
 
@@ -128,7 +129,8 @@ class CompanyController extends Controller
 
             return response()->json([
                 "status" => "success",
-                "message" => "Company Updated Successfully!", $company
+                "message" => "Company Updated Successfully!",
+                'company' => $company
               ], 200);
 
     }

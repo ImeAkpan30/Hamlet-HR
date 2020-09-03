@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome', ['emails' => DatabaseSeeder::managerEmails()]);
 });
+// socialite google
+Route::get('/google', 'GoogleController@google');
+Route::get('/google/callback', 'GoogleController@callback');
+

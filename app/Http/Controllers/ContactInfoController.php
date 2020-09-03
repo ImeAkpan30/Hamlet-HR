@@ -32,7 +32,7 @@ class ContactInfoController extends Controller
             return response()->json([
                 "status" => "success",
                 "message" => "Contact Info Added Successfully!",
-                $contactInfo
+                'contactInfo' => $contactInfo
               ], 200);
     }
     public function updateContactInfo(Request $request,$id){
@@ -56,7 +56,8 @@ class ContactInfoController extends Controller
             $contactInfo->save();
             return response()->json([
                 "status" => "success",
-                "message" => "Contact Info Updated Successfully!"
+                "message" => "Contact Info Updated Successfully!",
+                'contactInfo' => $contactInfo
               ], 200);
     }
 }

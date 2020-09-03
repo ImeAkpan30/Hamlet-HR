@@ -13,6 +13,18 @@ use URL;
 
 class EmployeeController extends Controller
 {
+    public function getEmployees() {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+
+         }
+         $employees = User::where('id',Auth::user()->id)
+         ->with('employees.jobDetails')
+        ->with('employees.contactInfo')
+         ->first();
+        return response()->json($employees, 200);
+    }
+
     public function getEmployee($id) {
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized!'], 401);
@@ -24,17 +36,26 @@ class EmployeeController extends Controller
         ->get();
         return response()->json($employees, 200);
     }
-    public function getSingleEmployee($id) {
+
+    public function getSingleEmployee($id){
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized!'], 401);
 
          }
-        $employees = Employee::where('id',$id)
-        ->with('jobDetails')
-        ->with('contactInfo')
-        ->get();
-        return response()->json($employees, 200);
-    }
+        if (Employee::where('id', $id)->exists()) {
+            $employee = Employee::where('id', $id)
+            ->with('jobDetails')
+            ->with('contactInfo')
+            ->get();
+            return response()->json([
+                'employee' => $employee
+            ], 200);
+          } else {
+            return response()->json([
+              "message" => "Employee not found"
+            ], 404);
+          }
+        }
 
     public function addEmployee(Request $request){
         if (!Auth::check()) {
@@ -86,7 +107,8 @@ class EmployeeController extends Controller
             //    }
             return response()->json([
                 "status" => "success",
-                "message" => "Employee Added Successfully!", $employee
+                "message" => "Employee Added Successfully!",
+                'employee' => $employee
               ], 200);
     }
 
@@ -109,7 +131,6 @@ class EmployeeController extends Controller
 
         if (Employee::where('id', $id)->exists()) {
             $company_id = Company::where('user_id',Auth::user()->id)->pluck('id')->first();
-
             $employee = Employee::find($id);
             $employee->first_name = $request->input('first_name');
             $employee->other_names = $request->input('other_names');
@@ -149,7 +170,7 @@ class EmployeeController extends Controller
             return response()->json([
                 "status" => "success",
                 "message" => "Employee Updated Successfully!",
-                $employee
+                'employee' => $employee
               ], 200);
 
     }

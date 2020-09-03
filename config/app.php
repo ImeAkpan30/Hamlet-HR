@@ -182,6 +182,8 @@ return [
          * Module Service Providers
          */
         Hamlet\Modules\Auth\AuthServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+
 
     ],
 
@@ -236,7 +238,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
         'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
-        
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+
+
 
     ],
 
