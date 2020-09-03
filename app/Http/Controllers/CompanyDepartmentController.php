@@ -29,7 +29,7 @@ class CompanyDepartmentController extends Controller
             return response()->json(['message' => 'Unauthorized!'], 401);
          }
         $this->validate($request,[
-            'name'=>'required',
+            'name'=>'required|unique:company_departments',
         ]);
 
         $company_id = Company::where('user_id',Auth::user()->id)->pluck('id')->first();
