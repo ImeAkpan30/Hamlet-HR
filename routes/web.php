@@ -15,10 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome', ['emails' => DatabaseSeeder::managerEmails()]);
-});
+}); 
+// socialite google
+Route::get('/google', 'GoogleController@google');
+Route::get('/google/callback', 'GoogleController@callback');
+ 
 
 Route::get('/deploy', function () {
     $rootDir = base_path();
     exec("cd $rootDir && git pull origin master", $output);
     dump($output);
-});
+}); 

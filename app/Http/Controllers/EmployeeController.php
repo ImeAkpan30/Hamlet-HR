@@ -30,15 +30,11 @@ class EmployeeController extends Controller
             return response()->json(['message' => 'Unauthorized!'], 401);
 
          }
-         $auth_id = User::where('id',Auth::user()->id)->pluck('id')->first();
-        $employees = Employee::where('company_id',$id)
-        ->where('user_id',$auth_id)
+        $employees = Employee::where('user_id',$id)
         ->with('jobDetails')
         ->with('contactInfo')
         ->get();
-        return response()->json([
-            'employee' => $employees
-        ],200);
+        return response()->json($employees, 200);
     }
 
     public function getSingleEmployee($id){
@@ -135,7 +131,6 @@ class EmployeeController extends Controller
 
         if (Employee::where('id', $id)->exists()) {
             $company_id = Company::where('user_id',Auth::user()->id)->pluck('id')->first();
-
             $employee = Employee::find($id);
             $employee->first_name = $request->input('first_name');
             $employee->other_names = $request->input('other_names');

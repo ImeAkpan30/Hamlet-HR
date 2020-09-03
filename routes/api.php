@@ -43,8 +43,8 @@ Route::put('/profile/{id}', 'ProfileController@updateProfile');
 
 Route::get('/employee', 'EmployeeController@getEmployees');
 Route::post('/employee', 'EmployeeController@addEmployee');
-Route::get('/employee/{id}', 'EmployeeController@getEmployee');
-Route::get('/employees/{id}', 'EmployeeController@getSingleEmployee');
+Route::get('/employee/{id}', 'EmployeeController@getEmployee'); 
+Route::get('/employees/{id}', 'EmployeeController@getSingleEmployee'); 
 Route::put('/employee/{id}', 'EmployeeController@updateEmployee');
 Route::post('/employee/disabled/{id}', 'EmployeeController@employeeDisabled');
 
@@ -54,3 +54,4 @@ Route::put('/job-details/{id}', 'JobDetailController@UpdatejobDetails');
 Route::post('/contact-info', 'ContactInfoController@addContactInfo');
 Route::put('/contact-info/{id}', 'ContactInfoController@updateContactInfo');
 Route::post('/attendance', 'AttendanceController@addAttendance');
+
