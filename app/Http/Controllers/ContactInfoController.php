@@ -16,7 +16,7 @@ class ContactInfoController extends Controller
          }
         $this->validate($request,[
             'phone'=>'required',
-            'email'=>'required|unique:contact_infos',
+            'email'=>'required',
             'emergency_contact'=>'required',
         ]);
 
@@ -42,7 +42,7 @@ class ContactInfoController extends Controller
          }
         $this->validate($request,[
             'phone'=>'required',
-            'email'=>'required|unique:contact_infos',
+            'email'=>'required',
             'emergency_contact'=>'required',
         ]);
 
