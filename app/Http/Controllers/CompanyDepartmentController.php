@@ -35,9 +35,7 @@ class CompanyDepartmentController extends Controller
         $company_id = Company::where('user_id',Auth::user()->id)->pluck('id')->first();
         $companyDept = new CompanyDepartment();
         $companyDept->name = $request->input('name');
-        $companyDept->company_id = $company_id;
-
-
+        $companyDept->company_id = $company_id; 
             $companyDept->save();
             return response()->json([
                 "status" => "success",
