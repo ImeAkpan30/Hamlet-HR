@@ -43,18 +43,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email|max:255',
-            'password' => 'required|string|min:8|max:255',
-        ]);
-
-        if($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'messages' => $validator->messages()
-            ], 422);
-        }
-
+       
       $credentials = $request->only(['email', 'password']);
 
       if (!$token = auth()->attempt($credentials)) {
@@ -77,7 +66,7 @@ class AuthController extends Controller
         ->with('employees')
         ->with('employees.jobDetails')
         ->with('employees.contactInfo')
-        ->with('company.companyDepartments') 
+        ->with('company.companyDepartments')
         ->first();
         return response()->json([
             'user' => $user
