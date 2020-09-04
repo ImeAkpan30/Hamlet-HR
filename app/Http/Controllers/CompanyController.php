@@ -46,8 +46,7 @@ class CompanyController extends Controller
         $company->services = $request->input('services');
 
         if($request->hasFile('company_logo')){
-            $file = $request->file('company_logo');
-
+            $file = $request->file('company_logo'); 
             $file->move(public_path(). '/logos/', $file->getClientOriginalName());
             $url = URL::to("/") . '/logos/'. $file->getClientOriginalName();
             $company->company_logo = $url;
