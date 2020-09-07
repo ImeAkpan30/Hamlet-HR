@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use URL;
+use File;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
@@ -142,6 +144,11 @@ class EmployeeController extends Controller
             $employee->qualification = $request->input('qualification');
 
         if($request->hasFile('profile_pic')){
+
+            // $image_path = public_path("images/{$employee->profile_pic}");
+            // if (file_exists($image_path)){
+            //     Storage::delete($image_path);
+            // }
             $file = $request->file('profile_pic');
 
             $file->move(public_path(). '/images/', $file->getClientOriginalName());

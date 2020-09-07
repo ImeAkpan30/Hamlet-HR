@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+
 // use App\Mail\signupMail;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -77,7 +78,7 @@ class AuthController extends Controller
         ->with('employees')
         ->with('employees.jobDetails')
         ->with('employees.contactInfo')
-        ->with('company.companyDepartments') 
+        ->with('company.companyDepartments')
         ->first();
         return response()->json([
             'user' => $user
