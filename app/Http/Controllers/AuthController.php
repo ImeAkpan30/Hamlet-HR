@@ -19,12 +19,13 @@ class AuthController extends Controller
     public function __construct() {
         $this->middleware('auth:api', ['except' => ['login', 'register','getAuthUser', 'logout']]);
     }
-      
+
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:100|unique:users',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
             'password' => 'required|min:8|max:255|confirmed',
+            
         ]);
 
         if($validator->fails()) {
