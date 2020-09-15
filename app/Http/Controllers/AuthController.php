@@ -24,7 +24,8 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:100|unique:users',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|min:8|max:255|confirmed',
+            'password' => 'required|min:8|max:20|confirmed|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
+
         ]);
 
         if($validator->fails()) {
@@ -38,8 +39,9 @@ class AuthController extends Controller
         $user = new User();
         $user->fill($request->all());
         $user->password = bcrypt($request->password);
+        $user->role = "manager";
         $user->save();
-        
+
         // login user
         $token = auth()->login($user);
 
