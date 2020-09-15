@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function __construct() {
         $this->middleware('auth:api', ['except' => ['login', 'register','getAuthUser', 'logout']]);
     }
-
+      
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:100|unique:users',
@@ -38,8 +38,9 @@ class AuthController extends Controller
         $user = new User();
         $user->fill($request->all());
         $user->password = bcrypt($request->password);
+        $user->role = "manager";
         $user->save();
-        
+
         // login user
         $token = auth()->login($user);
 

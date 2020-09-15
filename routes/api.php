@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth' 
+    'prefix' => 'auth'
 ], function ($router) {
     Route::post('signup', 'AuthController@register')->name('signup');
     Route::post('login', 'AuthController@login')->name('login');
