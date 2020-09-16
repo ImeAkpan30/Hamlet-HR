@@ -29,8 +29,10 @@
 
 - Execute: php artisan jwt:secret
 
-- Default email: hr@starthub.com.ng
-- Default password: password
+- Seed the database with the admin details: php artisan db:seed --class=AdminSeeder
+
+- Default admin email: hamlethr2020@gmail.com
+- Default password: Hamlet2020
 
 - Done
 
