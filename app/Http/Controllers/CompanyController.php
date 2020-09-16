@@ -46,7 +46,7 @@ class CompanyController extends Controller
         $company->services = $request->input('services');
 
         if($request->hasFile('company_logo')){
-            $file = $request->file('company_logo'); 
+            $file = $request->file('company_logo');
             $file->move(public_path(). '/logos/', $file->getClientOriginalName());
             $url = URL::to("/") . '/logos/'. $file->getClientOriginalName();
             $company->company_logo = $url;
@@ -68,7 +68,7 @@ class CompanyController extends Controller
             return response()->json(['message' => 'Unauthorized!'], 401);
 
          }
-        $this->validate($request,[
+        $request->validate([
             'company_name'=>'required',
             'company_address'=>'required',
             'company_email'=>'required',
@@ -84,7 +84,6 @@ class CompanyController extends Controller
 
         if (Company::where('id', $id)->exists()) {
             $company = Company::find($id);
-
             $company->company_name = $request->input('company_name');
             $company->company_address = $request->input('company_address');
             $company->company_email = $request->input('company_email');
@@ -107,23 +106,7 @@ class CompanyController extends Controller
             $company->company_logo = null;
         }
 
-        $data = array(
-            'company_name' => $company->company_name,
-            'company_address' => $company->company_address,
-            'company_email' => $company->company_email,
-            'company_phone' => $company->company_phone,
-            'no_of_employees' => $company->no_of_employees,
-            'city' => $company->city,
-            'state' => $company->state,
-            'zip_code' => $company->zip_code,
-            'company_website' => $company->company_website,
-            'services' => $company->services,
-            'company_logo' => $company->company_logo,
-        );
-
         }
-
-        Company::where('id', $id)->update($data);
         $company->update();
 
             return response()->json([
