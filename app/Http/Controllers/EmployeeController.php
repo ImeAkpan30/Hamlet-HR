@@ -145,10 +145,11 @@ class EmployeeController extends Controller
 
         if($request->hasFile('profile_pic')){
 
-            // $image_path = public_path("images/{$employee->profile_pic}");
-            // if (file_exists($image_path)){
-            //     Storage::delete($image_path);
-            // }
+            $image_path = public_path("images/{$employee->profile_pic}");
+            if (file_exists($image_path)){
+                File::delete($image_path);
+            }
+
             $file = $request->file('profile_pic');
 
             $file->move(public_path(). '/images/', $file->getClientOriginalName());
@@ -173,7 +174,6 @@ class EmployeeController extends Controller
 
         Employee::where('id', $id)->update($data);
         $employee->update();
-
             return response()->json([
                 "status" => "success",
                 "message" => "Employee Updated Successfully!",

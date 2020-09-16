@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\User;
 
 class AuthController extends Controller
 {
