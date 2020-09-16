@@ -27,6 +27,10 @@ Route::group([
     Route::get('admin', 'AuthController@getAuthUser');
 });
 
+// Admin Route
+Route::post('/admin/login', 'AdminController@login');
+Route::post('/admin/logout', 'AdminController@logout');
+
 Route::post('/company', 'CompanyController@addCompany');
 Route::put('/company/{id}', 'CompanyController@updateCompany');
 
