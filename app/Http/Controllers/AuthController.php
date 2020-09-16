@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+
 // use App\Mail\signupMail;
 use App\Company;
 use App\Profile;
@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\User;
 
 class AuthController extends Controller
 {
@@ -51,7 +52,7 @@ class AuthController extends Controller
         $profile->user_id =User::where('id',auth()->user()->id)->pluck('id')->first();
         $profile->last_name = '_';
         $profile->address = 'New york';
-        $profile->profile_pic =URL::to("/") . '/logos/avater.png';
+        $profile->profile_pic = URL::to("/") . '/logos/avater.png';
         $profile->save();
 
         //create company account for user

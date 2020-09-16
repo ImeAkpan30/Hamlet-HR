@@ -25,8 +25,6 @@ class ContactInfoController extends Controller
         $contactInfo->employee_id =$request->input('employee_id');
         $contactInfo->email = $request->input('email');
         $contactInfo->emergency_contact = $request->input('emergency_contact');
-// 1325 1325
-// 3150
 
             $contactInfo->save();
             return response()->json([
