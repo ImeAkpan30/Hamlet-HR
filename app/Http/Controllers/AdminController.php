@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Admin;
+use App\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,11 +22,66 @@ class AdminController extends Controller
 
     public function login(Request $request)
     {
-      $credentials = $request->only(['email', 'password']);
-      if (!$token = auth()->attempt($credentials)) {
-        return response()->json(['error' => 'Unauthorized'], 401);
-      }
-        return $this->respondWithToken($token);
+        $email = User::where('role','admin')->pluck('email')->first();
+        if ($request->email != $email ) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+         }else {
+            $credentials = $request->only(['email', 'password']);
+            if (!$token = auth()->attempt($credentials)) {
+              return response()->json(['error' => 'Unauthorized'], 401);
+            }
+              return $this->respondWithToken($token);
+         }
+    }
+
+    public function getAdmin()
+    {
+
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+
+         }
+        $user = User::where('id',Auth::user()->id)
+        ->where('role','admin')
+        ->first();
+        return response()->json([
+            'admin' => $user
+        ], 200);
+    }
+
+    public function getUsers()
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+         }
+         $user = User::where('role','manager')
+        ->with('company')
+        ->with('profile')
+        ->with('employees')
+        ->with('employees.jobDetails')
+        ->with('employees.contactInfo')
+        ->with('company.companyDepartments')
+        ->get();
+        return response()->json([
+            'user' => $user
+        ], 200);
+    }
+
+    public function getCompanies()
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+
+         }
+         $company = Company::with('user')
+        ->with('employees')
+        ->with('employees.jobDetails')
+        ->with('employees.contactInfo')
+        ->with('companyDepartments')
+        ->get();
+        return response()->json([
+            'company' => $company
+        ], 200);
     }
 
 

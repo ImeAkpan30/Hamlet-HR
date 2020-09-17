@@ -22,7 +22,7 @@ class Company extends Model
     {
         return $this->hasMany(CompanyDepartment::class);
     }
-    public function employee()
+    public function employees()
     {
         return $this->hasMany(Employee::class);
     }
