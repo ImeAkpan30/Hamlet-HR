@@ -93,8 +93,7 @@ class CompanyController extends Controller
             $company->state = $request->input('state');
             $company->zip_code = $request->input('zip_code');
             $company->company_website = $request->input('company_website');
-            $company->services = $request->input('services');
-
+            $company->services = $request->input('services'); 
 
         if($request->hasFile('company_logo')){
             $file = $request->file('company_logo');

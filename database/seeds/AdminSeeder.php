@@ -1,7 +1,9 @@
 <?php
 
 use App\User;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class AdminSeeder extends Seeder
 {
@@ -12,14 +14,29 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'username' => 'Admin',
-            'email' => 'hamlethr2020@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make("Hamlet2020"),
-            'role' => 'admin',
-            'remember_token' => Str::random(10)
-        ]);
+        // $userExist=User::where('email','hamlethr2020@gmail.com')->exit();
+        // if ( $userExist ) {
+            User::create([
+                'username' => 'Admin',
+                'email' => 'hamlethr2020@gmail.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make("Hamlet2020"),
+                'role' => 'admin',
+                'remember_token' => Str::random(10)
+            ]);
+        // } else {
+
+        //     User::u([
+        //         'username' => 'Admin',
+        //         'email' => 'hamlethr2020@gmail.com',
+        //         'email_verified_at' => now(),
+        //         'password' => Hash::make("Hamlet2020"),
+        //         'role' => 'admin',
+        //         'remember_token' => Str::random(10)
+        //     ]);
+        // }
+
+
     }
 }
 
