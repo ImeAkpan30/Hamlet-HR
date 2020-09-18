@@ -78,7 +78,7 @@ class CompanyController extends Controller
             'state'=>'required',
             'zip_code'=>'required',
             'company_website'=>'required',
-            'company_logo'=>'image|mimes:jpeg,png,svg,jpg|nullable',
+            'company_logo'=>'nullable|image|mimes:jpeg,png,svg,jpg',
             'services'=>'required'
         ]);
 
