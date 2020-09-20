@@ -14,29 +14,16 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        // $userExist=User::where('email','hamlethr2020@gmail.com')->exit();
-        // if ( $userExist ) {
-            User::create([
-                'username' => 'Admin',
-                'email' => 'hamlethr2020@gmail.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make("Hamlet2020"),
-                'role' => 'admin',
-                'remember_token' => Str::random(10)
-            ]);
-        // } else {
-
-        //     User::u([
-        //         'username' => 'Admin',
-        //         'email' => 'hamlethr2020@gmail.com',
-        //         'email_verified_at' => now(),
-        //         'password' => Hash::make("Hamlet2020"),
-        //         'role' => 'admin',
-        //         'remember_token' => Str::random(10)
-        //     ]);
-        // }
-
-
+        User::updateOrCreate(
+            ['email' => 'hamlethr2020@gmail.com'],
+            [
+            'username' => 'Admin',
+            'email' => 'hamlethr2020@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make("Hamlet2020"),
+            'role' => 'admin',
+            'remember_token' => Str::random(10)
+        ]);
     }
 }
 
