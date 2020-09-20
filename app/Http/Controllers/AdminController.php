@@ -41,7 +41,7 @@ class AdminController extends Controller
             return response()->json(['message' => 'Unauthorized!'], 401);
 
          }
-        $user = User::where('id',Auth::user()->id)
+        $user = User::where('id',auth()->user()->id)
         ->where('role','admin')
         ->first();
         return response()->json([
