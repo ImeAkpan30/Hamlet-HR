@@ -67,6 +67,29 @@ class AdminController extends Controller
         ], 200);
     }
 
+    public function getUserByEmail(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+         }
+
+        //  if (User::where('email', $email)->exists()) {
+        //     $user = User::find($email);
+        //  }
+         $email = $request->input('email');
+         $user = User::where('email', $email)
+        ->with('company')
+        ->with('profile')
+        ->with('employees')
+        ->with('employees.jobDetails')
+        ->with('employees.contactInfo')
+        ->with('company.companyDepartments')
+        ->first();
+        return response()->json([
+            'user' => $user
+        ], 200);
+    }
+
     public function getCompanies()
     {
         if (!Auth::check()) {

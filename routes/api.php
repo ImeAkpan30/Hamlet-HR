@@ -33,6 +33,7 @@ Route::post('/admin/logout', 'AdminController@logout');
 Route::get('/admin/profile', 'AdminController@getAdmin');
 Route::get('/admin/user', 'AdminController@getUsers');
 Route::get('/admin/company', 'AdminController@getCompanies');
+Route::get('/user', 'AdminController@getUserByEmail');
 
 // Company Routes
 Route::post('/company', 'CompanyController@addCompany');
