@@ -52,6 +52,7 @@ class AuthController extends Controller
         $profile->user_id =User::where('id',auth()->user()->id)->pluck('id')->first();
         $profile->last_name = '_';
         $profile->address = 'New york';
+        $profile->phone = '_';
         $profile->profile_pic = URL::to("/") . '/logos/avater.png';
         $profile->save();
 
