@@ -19,12 +19,15 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::group([
     'middleware' => 'api',
+    'middleware'=>'is-ban',
     'prefix' => 'auth'
 ], function ($router) {
     Route::post('signup', 'AuthController@register')->name('signup');
     Route::post('login', 'AuthController@login')->name('login');
     Route::post('logout', 'AuthController@logout');
     Route::get('admin', 'AuthController@getAuthUser');
+    Route::get('userRevoke/{id}', 'AdminController@revoke');
+    Route::post('userBan', 'AdminController@ban');
 });
 
 // Admin Routes
@@ -33,21 +36,22 @@ Route::post('/admin/logout', 'AdminController@logout');
 Route::get('/admin/profile', 'AdminController@getAdmin');
 Route::get('/admin/user', 'AdminController@getUsers');
 Route::get('/admin/company', 'AdminController@getCompanies');
+Route::get('/user/{email}', 'AdminController@getUserByEmail');
 
 // Company Routes
 Route::post('/company', 'CompanyController@addCompany');
 Route::put('/company/{id}', 'CompanyController@updateCompany');
 
+// Department Routes
 Route::get('/department/{id}', 'CompanyDepartmentController@getDepartments');
 Route::post('/department', 'CompanyDepartmentController@addDepartment');
-
 Route::put('/department/{id}', 'CompanyDepartmentController@updateDepartment');
 
+// Manager Profile Routes
 Route::post('/profile', 'ProfileController@addProfile');
 Route::put('/profile/{id}', 'ProfileController@updateProfile');
 
-
-
+// Employee Routes
 Route::get('/employee', 'EmployeeController@getEmployees');
 Route::post('/employee', 'EmployeeController@addEmployee');
 Route::get('/employee/{id}', 'EmployeeController@getEmployee');
@@ -55,9 +59,11 @@ Route::get('/employees/{id}', 'EmployeeController@getSingleEmployee');
 Route::put('/employee/{id}', 'EmployeeController@updateEmployee');
 Route::post('/employee/disabled/{id}', 'EmployeeController@employeeDisabled');
 
+// Job Details Routes
 Route::post('/job-details', 'JobDetailController@addJobDetails');
 Route::put('/job-details/{id}', 'JobDetailController@UpdatejobDetails');
 
+// Contact Info Routes
 Route::post('/contact-info', 'ContactInfoController@addContactInfo');
 Route::put('/contact-info/{id}', 'ContactInfoController@updateContactInfo');
 Route::post('/attendance', 'AttendanceController@addAttendance');

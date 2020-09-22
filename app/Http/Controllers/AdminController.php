@@ -41,7 +41,7 @@ class AdminController extends Controller
             return response()->json(['message' => 'Unauthorized!'], 401);
 
          }
-        $user = User::where('id',Auth::user()->id)
+        $user = User::where('id',auth()->user()->id)
         ->where('role','admin')
         ->first();
         return response()->json([
@@ -54,17 +54,68 @@ class AdminController extends Controller
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized!'], 401);
          }
-         $user = User::where('role','manager')
+         $user = User::where('role','!=','admin')
         ->with('company')
         ->with('profile')
         ->with('employees')
         ->with('employees.jobDetails')
         ->with('employees.contactInfo')
         ->with('company.companyDepartments')
-        ->get();
+        ->paginate(5);
         return response()->json([
             'user' => $user
         ], 200);
+    }
+
+    public function getUserByEmail(Request $request, $email)
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+         }
+
+         $user = User::where('email',$request->email)->first();
+         if($user) {
+            //  dd($email);
+             $user = User::where('email',$request->email)
+             ->with('company')
+        ->with('profile')
+        ->with('employees')
+        ->with('employees.jobDetails')
+        ->with('employees.contactInfo')
+        ->with('company.companyDepartments')
+        ->first();
+        return response()->json([
+            'user' => $user
+        ], 200);
+
+         }else{
+            return response()->json(['message' => 'User Not Found'], 400);
+         }
+    }
+
+    public function ban(Request $request)
+    {
+        $input = $request->all();
+        if(!empty($input['id'])){
+            $user = User::find($input['id']);
+            $user->bans()->create([
+			    'expired_at' => '+14 days',
+			    'comment'=>$request->comment
+			]);
+        }
+
+        return response()->json(['message' => 'User Banned Successfully..'], 200);
+    }
+
+    public function revoke($id)
+    {
+        if(!empty($id)){
+            $user = User::find($id);
+            $user->unban();
+        }
+
+        return response()->json(['message' => 'User Revoked Successfully..'], 200);
+
     }
 
     public function getCompanies()
@@ -78,7 +129,7 @@ class AdminController extends Controller
         ->with('employees.jobDetails')
         ->with('employees.contactInfo')
         ->with('companyDepartments')
-        ->get();
+        ->paginate(5);
         return response()->json([
             'company' => $company
         ], 200);
@@ -86,10 +137,7 @@ class AdminController extends Controller
 
 
     public function logout() {
-        if (!Auth::check()) {
-            return response()->json(['message' => 'Unauthorized!'], 401);
 
-         }
         auth()->logout();
 
         return response()->json([

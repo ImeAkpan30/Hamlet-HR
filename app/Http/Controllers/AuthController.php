@@ -52,6 +52,7 @@ class AuthController extends Controller
         $profile->user_id =User::where('id',auth()->user()->id)->pluck('id')->first();
         $profile->last_name = '_';
         $profile->address = 'New york';
+        $profile->phone = '_';
         $profile->profile_pic = URL::to("/") . '/logos/avater.png';
         $profile->save();
 
@@ -75,13 +76,21 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-      $credentials = $request->only(['email', 'password']);
-      if (!$token = auth()->attempt($credentials)) {
-        return response()->json(['error' => 'Unauthorized'], 401);
-      }
+        $user = User::where('email',$request->email)
+        ->where('banned_at', "<>",'')->first();
+        if($user) {
+            return response()->json(['message' => 'Banned User'], 401);
+        }
+
+        $credentials = $request->only(['email', 'password']);
+        if (!$token = auth()->attempt($credentials)) {
+          return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         return $this->respondWithToken($token);
-    }
-    
+        }
+
+
     public function getAuthUser()
     {
 
