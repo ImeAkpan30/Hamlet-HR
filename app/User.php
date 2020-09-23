@@ -6,16 +6,19 @@ namespace App;
 use App\Company;
 use App\Profile;
 use App\Employee;
+use Cog\Contracts\Ban\Bannable as BannableContract;
+use Cog\Laravel\Ban\Traits\Bannable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, BannableContract
 
 {
     use Notifiable;
+    use Bannable;
 
     /**
      * The attributes that are mass assignable.

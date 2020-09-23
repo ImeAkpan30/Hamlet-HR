@@ -20,6 +20,7 @@ class ProfileController extends Controller
             'first_name'=>'required',
             'last_name'=>'required',
             'address'=>'required',
+            'phone'=>'required',
             'profile_pic'=>'image|mimes:jpeg,png,svg,jpg|nullable',
         ]);
 
@@ -30,6 +31,7 @@ class ProfileController extends Controller
         $profile->user_id = $id;
         $profile->last_name = $request->input('last_name');
         $profile->address = $request->input('address');
+        $profile->phone = $request->input('phone');
 
         if($request->hasFile('profile_pic')){
             $file = $request->file('profile_pic');
@@ -58,6 +60,7 @@ class ProfileController extends Controller
             'first_name'=>'required',
             'last_name'=>'required',
             'address'=>'required',
+            'phone'=>'required',
             'profile_pic'=>'image|mimes:jpeg,png,svg,jpg|nullable',
         ]);
         if (Profile::where('id', $id)->exists()) {
@@ -66,6 +69,7 @@ class ProfileController extends Controller
             $profile->first_name = $request->input('first_name');
             $profile->last_name = $request->input('last_name');
             $profile->address = $request->input('address');
+            $profile->phone = $request->input('phone');
 
 
         if($request->hasFile('profile_pic')){
