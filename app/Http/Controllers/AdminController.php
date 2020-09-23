@@ -87,8 +87,7 @@ class AdminController extends Controller
 
     public function logout() {
         if (!Auth::check()) {
-            return response()->json(['message' => 'Unauthorized!'], 401);
-
+            return response()->json(['message' => 'Unauthorized!'], 401); 
          }
         auth()->logout();
 
