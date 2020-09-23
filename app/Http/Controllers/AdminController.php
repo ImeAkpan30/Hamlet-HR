@@ -67,17 +67,13 @@ class AdminController extends Controller
         ], 200);
     }
 
-    public function getUserByEmail(Request $request, $email)
+    public function getUserByEmail($email)
     {
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized!'], 401);
          }
-
-         $user = User::where('email',$request->email)->first();
-         if($user) {
-            //  dd($email);
-             $user = User::where('email',$request->email)
-             ->with('company')
+       $user = User::where('email',$email)
+         ->with('company')
         ->with('profile')
         ->with('employees')
         ->with('employees.jobDetails')
@@ -87,10 +83,7 @@ class AdminController extends Controller
         return response()->json([
             'user' => $user
         ], 200);
-
-         }else{
-            return response()->json(['message' => 'User Not Found'], 400);
-         }
+    
     }
 
     public function ban(Request $request)
@@ -137,7 +130,6 @@ class AdminController extends Controller
 
 
     public function logout() {
-
         auth()->logout();
 
         return response()->json([
