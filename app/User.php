@@ -4,13 +4,14 @@ namespace App;
 
 
 use App\Company;
+use App\Contact;
 use App\Profile;
 use App\Employee;
-use Cog\Contracts\Ban\Bannable as BannableContract;
 use Cog\Laravel\Ban\Traits\Bannable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Cog\Contracts\Ban\Bannable as BannableContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
@@ -70,5 +71,10 @@ class User extends Authenticatable implements JWTSubject, BannableContract
     public function employees()
     {
         return $this->hasMany(Employee::class);
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
     }
 }

@@ -34,9 +34,10 @@ Route::group([
 Route::post('/admin/login', 'AdminController@login');
 Route::post('/admin/logout', 'AdminController@logout');
 Route::get('/admin/profile', 'AdminController@getAdmin');
-Route::get('/admin/user', 'AdminController@getUsers');
+Route::get('/admin/users', 'AdminController@getUsers');
 Route::get('/admin/company', 'AdminController@getCompanies');
-Route::get('/user/{email}', 'AdminController@getUserByEmail');
+Route::get('/admin/contact', 'AdminController@getAllContacts');
+Route::get('/admin/user/{email}', 'AdminController@getUserByEmail');
 
 // Company Routes
 Route::post('/company', 'CompanyController@addCompany');
@@ -68,3 +69,4 @@ Route::post('/contact-info', 'ContactInfoController@addContactInfo');
 Route::put('/contact-info/{id}', 'ContactInfoController@updateContactInfo');
 Route::post('/attendance', 'AttendanceController@addAttendance');
 
+Route::post('contact-us', 'ContactController@saveContact');
