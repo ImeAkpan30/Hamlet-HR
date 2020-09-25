@@ -52,6 +52,6 @@ class GoogleController extends Controller
     }
     protected function respondWithToken($token,$user)
     { 
-      return redirect("https://hamlethr.netlify.app/#/google/$token");  //test link
+      return redirect("https://hamlethr.netlify.app/profile/$token");  //test link
     }
 }
