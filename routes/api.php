@@ -27,7 +27,7 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::get('admin', 'AuthController@getAuthUser');
     Route::get('userRevoke/{id}', 'AdminController@revoke');
-    Route::post('userBan', 'AdminController@ban');
+    Route::post('userBan', 'AdminController@ban'); 
 });
 
 // Admin Routes

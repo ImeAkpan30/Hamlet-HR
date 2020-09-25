@@ -83,7 +83,7 @@ class AdminController extends Controller
         return response()->json([
             'user' => $user
         ], 200);
-    
+
     }
 
     public function ban(Request $request)
@@ -107,7 +107,7 @@ class AdminController extends Controller
             $user->unban();
         }
 
-        return response()->json(['message' => 'User Revoked Successfully..'], 200);
+        return response()->json(['message' => 'User Unbanned Successfully..'], 200);
 
     }
 
