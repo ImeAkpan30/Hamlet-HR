@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Company;
 use App\Profile;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
+
 class GoogleController extends Controller
 {
     public function callback(){
@@ -41,9 +43,25 @@ class GoogleController extends Controller
        $profile->first_name =  $google_user->name;
        $profile->user_id =User::where('id',auth()->user()->id)->pluck('id')->first();
        $profile->last_name = '_';
-       $profile->address = 'New york';
+       $profile->address = 'Nigeria';
        $profile->profile_pic = ($google_user->avatar) ? $google_user->avatar : URL::to("/") . '/logos/avater.png';
        $profile->save();
+
+           //create company account for user
+        $company = new Company();
+        $company->company_name =  $request->username.' Company';
+        $company->user_id = User::where('id',auth()->user()->id)->pluck('id')->first();
+        $company->company_address = 'Company Address';
+        $company->company_email = 'example@company.com';
+        $company->company_phone = '+000_000_000';
+        $company->no_of_employees = 20;
+        $company->city = '_';
+        $company->state = '_';
+        $company->zip_code = '10j901-1';
+        $company->company_website = 'www.example.com';
+        $company->services = 'Software Development';
+        $company->company_logo =URL::to("/") . '/logos/avater.png';
+        $company->save();
        $status="Registered Succesfully";
        return $this->respondWithToken($token, $user);
     }
@@ -51,7 +69,7 @@ class GoogleController extends Controller
         return Socialite::driver('google')->redirect();
     }
     protected function respondWithToken($token,$user)
-    { 
+    {
       return redirect("https://hamlethr.netlify.app/google/site#$token");  //test link
     }
 }

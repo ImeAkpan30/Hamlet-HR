@@ -51,7 +51,7 @@ class AuthController extends Controller
         $profile->first_name = $request->username;
         $profile->user_id =User::where('id',auth()->user()->id)->pluck('id')->first();
         $profile->last_name = '_';
-        $profile->address = 'New york';
+        $profile->address = 'Nigeria';
         $profile->phone = '_';
         $profile->profile_pic = URL::to("/") . '/logos/avater.png';
         $profile->save();
@@ -63,9 +63,9 @@ class AuthController extends Controller
         $company->company_address = 'Company Address';
         $company->company_email = 'example@company.com';
         $company->company_phone = '+000_000_000';
-        $company->no_of_employees = 20;
-        $company->city = 'new york';
-        $company->state = 'U.S.A';
+        $company->no_of_employees = 5;
+        $company->city = '_';
+        $company->state = '+';
         $company->zip_code = '10j901-1';
         $company->company_website = 'www.example.com';
         $company->services = 'Software Development';
