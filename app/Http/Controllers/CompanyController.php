@@ -71,7 +71,7 @@ class CompanyController extends Controller
         $request->validate([
             'company_name'=>'required',
             'company_address'=>'required',
-            'company_email'=>'required',
+            'company_email'=>'required|unique:companies',
             'company_phone'=>'required',
             'no_of_employees'=>'required',
             'city'=>'required',
@@ -93,7 +93,7 @@ class CompanyController extends Controller
             $company->state = $request->input('state');
             $company->zip_code = $request->input('zip_code');
             $company->company_website = $request->input('company_website');
-            $company->services = $request->input('services'); 
+            $company->services = $request->input('services');
 
         if($request->hasFile('company_logo')){
             $file = $request->file('company_logo');

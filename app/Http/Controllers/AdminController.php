@@ -86,6 +86,24 @@ class AdminController extends Controller
         ], 200);
 
     }
+    public function getCompanyByEmail($email)
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+         }
+       $company = Company::where('company_email',$email)
+         ->with('user')
+         ->with('user.profile')
+         ->with('employees')
+         ->with('employees.jobDetails')
+         ->with('employees.contactInfo')
+         ->with('companyDepartments')
+         ->first();
+         return response()->json([
+             'company' => $company
+         ], 200);
+
+    }
 
     public function getAllContacts() {
         if (!Auth::check()) {
@@ -105,7 +123,7 @@ class AdminController extends Controller
         if(!empty($input['id'])){
             $user = User::find($input['id']);
             $user->bans()->create([
-			    'expired_at' => '+14 days',
+			    'expired_at' => '+7 days',
 			    'comment'=>$request->comment
 			]);
         }
@@ -131,6 +149,7 @@ class AdminController extends Controller
 
          }
          $company = Company::with('user')
+         ->with('user.profile')
         ->with('employees')
         ->with('employees.jobDetails')
         ->with('employees.contactInfo')
@@ -138,6 +157,23 @@ class AdminController extends Controller
         ->paginate(5);
         return response()->json([
             'company' => $company
+        ], 200);
+    }
+
+    public function getContactById($id){
+        $contact = Contact::where('id',$id)->first();
+
+        return response()->json([
+            'contact' => $contact
+        ], 200);
+
+    }
+
+    public function deleteContact($id)
+    {
+        Contact::where('id', $id)->delete();
+        return response()->json([
+            'message' => 'Contact Message Deleted Successfully!'
         ], 200);
     }
 
