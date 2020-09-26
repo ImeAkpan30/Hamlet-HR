@@ -79,7 +79,7 @@ class AuthController extends Controller
         $user = User::where('email',$request->email)
         ->where('banned_at', "<>",'')->first();
         if($user) {
-            return response()->json(['message' => 'Banned User'], 401);
+            return response()->json(['message' => 'Banned User'], 451);
         }
 
         $credentials = $request->only(['email', 'password']);
