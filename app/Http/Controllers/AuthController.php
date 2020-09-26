@@ -79,7 +79,7 @@ class AuthController extends Controller
         $user = User::where('email',$request->email)
         ->where('banned_at', "<>",'')->first();
         if($user) {
-            return response()->json(['message' => 'Banned User'], 401);
+            return response()->json(['message' => 'Banned User'], 451);
         }
 
         $credentials = $request->only(['email', 'password']);
@@ -114,7 +114,6 @@ class AuthController extends Controller
     public function logout() {
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized!'], 401);
-
          }
         auth()->logout();
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Admin;
 use App\Company;
+use App\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -61,7 +62,7 @@ class AdminController extends Controller
         ->with('employees.jobDetails')
         ->with('employees.contactInfo')
         ->with('company.companyDepartments')
-        ->paginate(5);
+        ->orderBy('id','DESC')->paginate(5);
         return response()->json([
             'user' => $user
         ], 200);
@@ -84,6 +85,17 @@ class AdminController extends Controller
             'user' => $user
         ], 200);
 
+    }
+
+    public function getAllContacts() {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+         }
+         $contact = Contact::orderBy('id','DESC')->paginate(5);
+           
+        return response()->json([
+            'contact' => $contact
+        ], 200);
     }
 
     public function ban(Request $request)

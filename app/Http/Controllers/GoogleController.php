@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Profile;
 use Illuminate\Support\Facades\URL;
-use App\Http\Controllers\Controller; 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 class GoogleController extends Controller
@@ -53,6 +53,6 @@ class GoogleController extends Controller
     protected function respondWithToken($token,$user)
     {
       //   return redirect("https://hamlethr.netlify.app/google/$token"); live link
-      return redirect("https://hamlethr.netlify.app/google/$token");  //test link
+      return redirect("https://hamlethr.netlify.app/#/google/$token");  //test link
     }
 }
