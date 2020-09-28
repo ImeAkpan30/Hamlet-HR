@@ -54,7 +54,8 @@ class AdminController extends Controller
     {
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized!'], 401);
-         }
+         } 
+
          $user = User::where('role','!=','admin')
         ->with('company')
         ->with('profile')
@@ -92,7 +93,7 @@ class AdminController extends Controller
             return response()->json(['message' => 'Unauthorized!'], 401);
          }
          $contact = Contact::orderBy('id','DESC')->paginate(5);
-           
+
         return response()->json([
             'contact' => $contact
         ], 200);
