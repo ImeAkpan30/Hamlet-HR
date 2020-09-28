@@ -49,7 +49,7 @@ class GoogleController extends Controller
 
            //create company account for user
         $company = new Company();
-        $company->company_name =  $request->username.' Company';
+        $company->company_name =  $google_user->name.' Company';
         $company->user_id = User::where('id',auth()->user()->id)->pluck('id')->first();
         $company->company_address = 'Company Address';
         $company->company_email = 'example@company.com';
