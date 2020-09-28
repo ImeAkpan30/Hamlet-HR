@@ -37,7 +37,10 @@ Route::get('/admin/profile', 'AdminController@getAdmin');
 Route::get('/admin/users', 'AdminController@getUsers');
 Route::get('/admin/company', 'AdminController@getCompanies');
 Route::get('/admin/contact', 'AdminController@getAllContacts');
+Route::get('/admin/contact/{id}', 'AdminController@getContactById');
+Route::delete('/admin/deleteContact/{id}', 'AdminController@deleteContact');
 Route::get('/admin/user/{email}', 'AdminController@getUserByEmail');
+Route::get('/admin/company/{email}', 'AdminController@getCompanyByEmail');
 
 // Company Routes
 Route::post('/company', 'CompanyController@addCompany');
