@@ -220,7 +220,7 @@ class AdminController extends Controller
             return response()->json(['message' => 'Unauthorized!'], 401);
          }
 
-         $users = User::where('banned_at', "!=",NULL)->first();
+         $users = User::where('banned_at', "!=",NULL)->get();
 
         if($users) {
             return response()->json(['banned_users' => $users], 200);
