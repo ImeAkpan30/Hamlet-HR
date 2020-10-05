@@ -17,7 +17,7 @@ class UpdateUserIdInEmployeesTable extends Migration
             $table->unsignedBigInteger('user_id')->change();
 
             $table->dropForeign('employees_user_id_foreign');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->change();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
