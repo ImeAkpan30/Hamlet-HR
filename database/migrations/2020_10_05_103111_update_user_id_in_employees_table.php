@@ -16,6 +16,7 @@ class UpdateUserIdInEmployeesTable extends Migration
         Schema::table('employees', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->change();
 
+            $table->dropForeign('employees_user_id_foreign');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->change();
         });
     }
@@ -29,6 +30,9 @@ class UpdateUserIdInEmployeesTable extends Migration
     {
         Schema::table('employees', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->change();
+
+            $table->dropForeign('employees_user_id_foreign');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 }
