@@ -243,17 +243,14 @@ class AdminController extends Controller
 
     }
 
-    // public function deleteUser($id)
-    // {
-    //     try {
-    //         $getUser = User::findOrFail($id);
-    //         $getUser->delete();
-    //     }
-    //     catch(ModelNotFoundException $exception)
-    //     {
-    //         return response()->json(['message' => 'User not Found'], 200);
-    //     }
-    // }
+    public function deleteUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return response()->json(['message' => 'User Deleted Successfully!'], 200);
+
+    }
 
 
     public function logout() {
