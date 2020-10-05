@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateUserIdInEmployeesTable extends Migration
+class UpdateUserIdInProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class UpdateUserIdInEmployeesTable extends Migration
      */
     public function up()
     {
-        Schema::table('employees', function (Blueprint $table) {
-            
-
-            $table->dropForeign('employees_user_id_foreign');
+        Schema::table('profiles', function (Blueprint $table) {
+            $table->dropForeign('profiles_user_id_foreign');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -28,10 +26,8 @@ class UpdateUserIdInEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::table('employees', function (Blueprint $table) {
-
-
-            $table->dropForeign('employees_user_id_foreign');
+        Schema::table('profiles', function (Blueprint $table) {
+            $table->dropForeign('profiles_user_id_foreign');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
