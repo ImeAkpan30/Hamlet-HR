@@ -27,7 +27,7 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::get('admin', 'AuthController@getAuthUser');
     Route::get('userRevoke/{id}', 'AdminController@revoke');
-    Route::post('userBan', 'AdminController@ban');
+    Route::post('userBan', 'AdminController@ban'); 
 });
 
 // Admin Routes
@@ -47,6 +47,10 @@ Route::get('/admin/ban/users', 'AdminController@getBannedUsers');
 Route::get('/admin/active/users', 'AdminController@getActiveUsers');
 Route::get('/admin/allCompanies', 'AdminController@getAllCompanies');
 Route::get('/admin/company/{email}', 'AdminController@getCompanyByEmail');
+
+// Chats
+Route::post('/chat', 'ChatController@chat');
+Route::get('/chat/view/{chat}', 'ChatController@view');
 
 // Company Routes
 Route::post('/company', 'CompanyController@addCompany');
