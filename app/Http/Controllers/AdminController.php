@@ -54,7 +54,7 @@ class AdminController extends Controller
     {
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized!'], 401);
-         } 
+         }
 
          $user = User::where('role','!=','admin')
         ->with('company')
@@ -171,6 +171,7 @@ class AdminController extends Controller
 
     public function deleteContact($id)
     {
+         
         Contact::where('id', $id)->delete();
         return response()->json([
             'message' => 'Contact Message Deleted Successfully!'

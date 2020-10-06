@@ -43,6 +43,7 @@ class GoogleController extends Controller
        $profile->first_name =  $google_user->name;
        $profile->user_id =User::where('id',auth()->user()->id)->pluck('id')->first();
        $profile->last_name = '_';
+       $profile->phone = '000-000-000';
        $profile->address = 'Nigeria';
        $profile->profile_pic = ($google_user->avatar) ? $google_user->avatar : URL::to("/") . '/logos/avater.png';
        $profile->save();
@@ -61,16 +62,15 @@ class GoogleController extends Controller
         $company->company_website = 'www.example.com';
         $company->services = 'Software Development';
         $company->company_logo =URL::to("/") . '/logos/avater.png';
-        $company->save();
-       $status="Registered Succesfully";
+        $company->save();          
+
        return $this->respondWithToken($token, $user);
     }
     public function google(){
         return Socialite::driver('google')->redirect();
     }
     protected function respondWithToken($token,$user)
- 
-    { 
-      return redirect("https://hamlethr.netlify.app/google/site#$token");  //live link 
+    {
+      return redirect("https://hamlethr.netlify.app/google/site#$token");  //live link
     }
 }
