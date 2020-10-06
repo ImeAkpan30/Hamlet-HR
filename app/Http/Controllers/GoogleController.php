@@ -43,7 +43,7 @@ class GoogleController extends Controller
        $profile->first_name =  $google_user->name;
        $profile->user_id =User::where('id',auth()->user()->id)->pluck('id')->first();
        $profile->last_name = '_';
-       $profile->phone = '000-000-000';
+       $profile->phone = '+000-000-000';
        $profile->address = 'Nigeria';
        $profile->profile_pic = ($google_user->avatar) ? $google_user->avatar : URL::to("/") . '/logos/avater.png';
        $profile->save();
@@ -54,7 +54,7 @@ class GoogleController extends Controller
         $company->user_id = User::where('id',auth()->user()->id)->pluck('id')->first();
         $company->company_address = 'Company Address';
         $company->company_email = 'example@company.com';
-        $company->company_phone = '+000_000_000';
+        $company->company_phone = '+000-000-000';
         $company->no_of_employees = 20;
         $company->city = '_';
         $company->state = '_';
@@ -62,7 +62,7 @@ class GoogleController extends Controller
         $company->company_website = 'www.example.com';
         $company->services = 'Software Development';
         $company->company_logo =URL::to("/") . '/logos/avater.png';
-        $company->save();          
+        $company->save();
 
        return $this->respondWithToken($token, $user);
     }
