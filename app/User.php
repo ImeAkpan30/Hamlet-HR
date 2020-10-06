@@ -3,6 +3,7 @@
 namespace App;
 
 
+use App\Chat;
 use App\Company;
 use App\Contact;
 use App\Profile;
@@ -76,5 +77,10 @@ class User extends Authenticatable implements JWTSubject, BannableContract
     public function contacts()
     {
         return $this->hasMany(Contact::class);
+    }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
     }
 }

@@ -178,6 +178,81 @@ class AdminController extends Controller
         ], 200);
     }
 
+    public function getAllUsers()
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+         }
+         $user = User::where('role','!=','admin')
+        ->with('company')
+        ->with('profile')
+        ->with('employees')
+        ->with('employees.jobDetails')
+        ->with('employees.contactInfo')
+        ->with('company.companyDepartments')
+        ->orderBy('id','DESC')
+        ->get();
+        return response()->json([
+            'user' => $user
+        ], 200);
+    }
+
+    public function getAllCompanies()
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+         }
+
+        $company = Company::with('user')
+         ->with('user.profile')
+        ->with('employees')
+        ->with('employees.jobDetails')
+        ->with('employees.contactInfo')
+        ->with('companyDepartments')
+        ->orderBy('id','DESC')->get();
+        return response()->json([
+            'company' => $company
+        ], 200);
+    }
+
+    public function getBannedUsers()
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+         }
+
+         $users = User::where('banned_at', "!=",NULL)->get();
+
+        if($users) {
+            return response()->json(['banned_users' => $users], 200);
+        }
+
+    }
+
+    public function getActiveUsers()
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+         }
+
+        $users = User::where('role','!=','admin')
+        ->where('banned_at', "=", NULL)->get();
+
+        if($users) {
+            return response()->json(['active_users' => $users], 200);
+        }
+
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return response()->json(['message' => 'User Deleted Successfully!'], 200);
+
+    }
+
 
     public function logout() {
         auth()->logout();

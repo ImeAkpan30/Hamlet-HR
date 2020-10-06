@@ -39,8 +39,18 @@ Route::get('/admin/company', 'AdminController@getCompanies');
 Route::get('/admin/contact', 'AdminController@getAllContacts');
 Route::get('/admin/contact/{id}', 'AdminController@getContactById');
 Route::delete('/admin/deleteContact/{id}', 'AdminController@deleteContact');
+Route::delete('/admin/deleteUser/{id}', 'AdminController@deleteUser');
 Route::get('/admin/user/{email}', 'AdminController@getUserByEmail');
+Route::get('/admin/allUsers', 'AdminController@getAllUsers');
+Route::get('/admin/allCompanies', 'AdminController@getAllCompanies');
+Route::get('/admin/ban/users', 'AdminController@getBannedUsers');
+Route::get('/admin/active/users', 'AdminController@getActiveUsers');
+Route::get('/admin/allCompanies', 'AdminController@getAllCompanies');
 Route::get('/admin/company/{email}', 'AdminController@getCompanyByEmail');
+
+// Chats
+Route::post('/chat', 'ChatController@chat');
+Route::get('/chat/view/{chat}', 'ChatController@view');
 
 // Company Routes
 Route::post('/company', 'CompanyController@addCompany');
