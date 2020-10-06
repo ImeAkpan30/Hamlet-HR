@@ -67,10 +67,18 @@ class GoogleController extends Controller
        return $this->respondWithToken($token, $user);
     }
     public function google(){
-        return Socialite::driver('google')->redirect();
+        try {
+            return Socialite::driver('google')->redirect();
+        } catch (\Throwable $th) {
+         return redirect()->back();
+        }
     }
     protected function respondWithToken($token,$user)
     {
-      return redirect("https://hamlethr.netlify.app/google/site#$token");  //live link
+        try {
+            return redirect("https://hamlethr.netlify.app/google/site#$token");  //live link 
+        } catch (\Throwable $th) {
+         return redirect()->back();
+        }
     }
 }
