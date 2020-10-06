@@ -48,6 +48,10 @@ Route::get('/admin/active/users', 'AdminController@getActiveUsers');
 Route::get('/admin/allCompanies', 'AdminController@getAllCompanies');
 Route::get('/admin/company/{email}', 'AdminController@getCompanyByEmail');
 
+// Chats
+Route::post('/chat', 'ChatController@chat');
+Route::get('/chat/view/{chat}', 'ChatController@view');
+
 // Company Routes
 Route::post('/company', 'CompanyController@addCompany');
 Route::put('/company/{id}', 'CompanyController@updateCompany');
