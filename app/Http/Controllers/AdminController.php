@@ -55,6 +55,7 @@ class AdminController extends Controller
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized!'], 401);
          }
+
          $user = User::where('role','!=','admin')
         ->with('company')
         ->with('profile')
@@ -138,7 +139,7 @@ class AdminController extends Controller
             $user->unban();
         }
 
-        return response()->json(['message' => 'User Revoked Successfully..'], 200);
+        return response()->json(['message' => 'User Unbanned Successfully..'], 200);
 
     }
 
@@ -171,6 +172,7 @@ class AdminController extends Controller
 
     public function deleteContact($id)
     {
+
         Contact::where('id', $id)->delete();
         return response()->json([
             'message' => 'Contact Message Deleted Successfully!'
