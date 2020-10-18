@@ -63,7 +63,7 @@ class AdminController extends Controller
         ->with('employees.jobDetails')
         ->with('employees.contactInfo')
         ->with('company.companyDepartments')
-        ->orderBy('id','DESC')->paginate(5);
+        ->orderBy('id','DESC')->paginate(10);
         return response()->json([
             'user' => $user
         ], 200);
@@ -110,7 +110,8 @@ class AdminController extends Controller
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized!'], 401);
          }
-         $contact = Contact::orderBy('id','DESC')->paginate(5);
+
+         $contact = Contact::orderBy('id','DESC')->paginate(10);
 
         return response()->json([
             'contact' => $contact
@@ -154,7 +155,7 @@ class AdminController extends Controller
         ->with('employees.jobDetails')
         ->with('employees.contactInfo')
         ->with('companyDepartments')
-        ->paginate(5);
+        ->paginate(10);
         return response()->json([
             'company' => $company
         ], 200);
@@ -171,7 +172,7 @@ class AdminController extends Controller
 
     public function deleteContact($id)
     {
-         
+
         Contact::where('id', $id)->delete();
         return response()->json([
             'message' => 'Contact Message Deleted Successfully!'
@@ -191,7 +192,7 @@ class AdminController extends Controller
         ->with('employees.contactInfo')
         ->with('company.companyDepartments')
         ->orderBy('id','DESC')
-        ->get();
+        ->paginate(10);;
         return response()->json([
             'user' => $user
         ], 200);
@@ -209,7 +210,8 @@ class AdminController extends Controller
         ->with('employees.jobDetails')
         ->with('employees.contactInfo')
         ->with('companyDepartments')
-        ->orderBy('id','DESC')->get();
+        ->orderBy('id','DESC')
+        ->paginate(10);
         return response()->json([
             'company' => $company
         ], 200);
@@ -221,7 +223,7 @@ class AdminController extends Controller
             return response()->json(['message' => 'Unauthorized!'], 401);
          }
 
-         $users = User::where('banned_at', "!=",NULL)->get();
+         $users = User::where('banned_at', "!=",NULL)->paginate(10);
 
         if($users) {
             return response()->json(['banned_users' => $users], 200);
@@ -236,7 +238,7 @@ class AdminController extends Controller
          }
 
         $users = User::where('role','!=','admin')
-        ->where('banned_at', "=", NULL)->get();
+        ->where('banned_at', "=", NULL)->paginate(10);
 
         if($users) {
             return response()->json(['active_users' => $users], 200);
