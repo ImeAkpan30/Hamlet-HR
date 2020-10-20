@@ -223,7 +223,15 @@ class AdminController extends Controller
             return response()->json(['message' => 'Unauthorized!'], 401);
          }
 
-         $users = User::where('banned_at', "!=",NULL)->paginate(10);
+         $users = User::where('banned_at', "!=",NULL)
+         ->with('company')
+        ->with('profile')
+        ->with('employees')
+        ->with('employees.jobDetails')
+        ->with('employees.contactInfo')
+        ->with('company.companyDepartments')
+        ->orderBy('id','DESC')
+         ->paginate(10);
 
         if($users) {
             return response()->json(['banned_users' => $users], 200);
@@ -238,7 +246,15 @@ class AdminController extends Controller
          }
 
         $users = User::where('role','!=','admin')
-        ->where('banned_at', "=", NULL)->paginate(10);
+        ->where('banned_at', "=", NULL)
+        ->with('company')
+        ->with('profile')
+        ->with('employees')
+        ->with('employees.jobDetails')
+        ->with('employees.contactInfo')
+        ->with('company.companyDepartments')
+        ->orderBy('id','DESC')
+        ->paginate(10);
 
         if($users) {
             return response()->json(['active_users' => $users], 200);
