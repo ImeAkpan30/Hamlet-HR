@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "ext-gd": "^7.3",
+        "beyondcode/laravel-websockets": "^1.9",
         "cybercog/laravel-ban": "^4.3",
         "dingo/api": "^3.0",
         "doctrine/dbal": "^2.11",
@@ -21,6 +22,7 @@
         "laravel/socialite": "^4.4",
         "laravel/tinker": "^2.0",
         "league/fractal": "^0.19.2",
+        "pusher/pusher-php-server": "~3.0",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
