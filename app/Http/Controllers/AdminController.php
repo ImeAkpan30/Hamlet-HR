@@ -192,7 +192,25 @@ class AdminController extends Controller
         ->with('employees.contactInfo')
         ->with('company.companyDepartments')
         ->orderBy('id','DESC')
-        ->paginate(10);;
+        ->paginate(10);
+        return response()->json([
+            'user' => $user
+        ], 200);
+    }
+    public function getChatUsers()
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized!'], 401);
+         }
+         $user = User::where('role','!=','admin')
+        ->with('company')
+        ->with('profile')
+        ->with('employees')
+        ->with('employees.jobDetails')
+        ->with('employees.contactInfo')
+        ->with('company.companyDepartments')
+        ->orderBy('id','DESC')
+        ->get();
         return response()->json([
             'user' => $user
         ], 200);

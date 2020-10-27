@@ -27,7 +27,7 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::get('admin', 'AuthController@getAuthUser');
     Route::get('userRevoke/{id}', 'AdminController@revoke');
-    Route::post('userBan', 'AdminController@ban'); 
+    Route::post('userBan', 'AdminController@ban');
 });
 
 // Admin Routes
@@ -42,6 +42,7 @@ Route::delete('/admin/deleteContact/{id}', 'AdminController@deleteContact');
 Route::delete('/admin/deleteUser/{id}', 'AdminController@deleteUser');
 Route::get('/admin/user/{email}', 'AdminController@getUserByEmail');
 Route::get('/admin/allUsers', 'AdminController@getAllUsers');
+Route::get('/admin/chatUsers', 'AdminController@getChatUsers');
 Route::get('/admin/allCompanies', 'AdminController@getAllCompanies');
 Route::get('/admin/ban/users', 'AdminController@getBannedUsers');
 Route::get('/admin/active/users', 'AdminController@getActiveUsers');
@@ -83,3 +84,9 @@ Route::put('/contact-info/{id}', 'ContactInfoController@updateContactInfo');
 Route::post('/attendance', 'AttendanceController@addAttendance');
 
 Route::post('contact-us', 'ContactController@saveContact');
+
+
+Route::get('test', function()
+{
+     return "testing";
+});

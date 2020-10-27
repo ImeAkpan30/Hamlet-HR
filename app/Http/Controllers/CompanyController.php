@@ -20,7 +20,7 @@ class CompanyController extends Controller
         $this->validate($request,[
             'company_name'=>'required',
             'company_address'=>'required',
-            'company_email'=>'required',
+            'company_email'=>'required|unique:companies',
             'company_phone'=>'required',
             'no_of_employees'=>'required',
             'city'=>'required',
@@ -71,7 +71,7 @@ class CompanyController extends Controller
         $request->validate([
             'company_name'=>'required',
             'company_address'=>'required',
-            'company_email'=>'required|unique:companies',
+            'company_email'=>'required',
             'company_phone'=>'required',
             'no_of_employees'=>'required',
             'city'=>'required',
