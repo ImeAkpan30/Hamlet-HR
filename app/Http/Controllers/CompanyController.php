@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use URL;
 use App\User;
 use App\Company;
 use Illuminate\Http\Request;
+use App\Events\Notifications;
 use Illuminate\Support\Facades\Auth;
-use URL;
 
 class CompanyController extends Controller
 {
@@ -56,6 +57,8 @@ class CompanyController extends Controller
 
 
             $company->save();
+             // events
+        event(new Notifications([$company,Auth::user()],'company_added'));
             return response()->json([
                 "status" => "success",
                 "message" => "Company Details Added Successfully!",
@@ -107,7 +110,8 @@ class CompanyController extends Controller
 
         }
         $company->update();
-
+            // events
+            event(new Notifications([$company,Auth::user()],'company_updated'));
             return response()->json([
                 "status" => "success",
                 "message" => "Company Updated Successfully!",

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Company;
 use App\Profile;
+use App\Events\Notifications;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -23,6 +24,8 @@ class GoogleController extends Controller
     if ($checkUser) {
        //    login user
        $token = auth()->login($checkUser);
+          // events
+   event(new Notifications($checkUser,'Login_viaGoogle'));
        $status="Login Succesfully";
        return $this->respondWithToken($token,$checkUser);
     }
@@ -37,6 +40,8 @@ class GoogleController extends Controller
 
          //    login user
        $token = auth()->login($user);
+          // events
+   event(new Notifications($user,'Registration_viaGoogle'));
 
        //create user profile
        $profile = new Profile();
@@ -74,7 +79,7 @@ class GoogleController extends Controller
         }
     }
     protected function respondWithToken($token,$user)
-    {
+    { 
         try {
             return redirect("https://hamlethr.netlify.app/google/site#$token");  //live link 
         } catch (\Throwable $th) {

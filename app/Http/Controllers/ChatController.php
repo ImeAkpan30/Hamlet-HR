@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Chat;
 use Illuminate\Http\Request;
+use App\Events\Notifications;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +42,8 @@ class ChatController extends Controller
 
         if($chat){
             $chat->save();
+             // events
+             event(new Notifications([$chat,Auth::user()],'Chat'));
             return response()->json([
                 "status" => "success",
                 "message" => "Chat  Successfully!",

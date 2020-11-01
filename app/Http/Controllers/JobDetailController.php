@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Employee;
 use App\JobDetail;
 use Illuminate\Http\Request;
+use App\Events\Notifications;
 use Illuminate\Support\Facades\Auth;
 
 class JobDetailController extends Controller
@@ -40,6 +41,8 @@ class JobDetailController extends Controller
         $jobDetail->work_location = $request->input('work_location');
 
             $jobDetail->save();
+               // events
+   event(new Notifications([$jobDetail,Auth::user()],'jobDetails_added'));
             return response()->json([
                 "status" => "success",
                 "message" => "Job Details Added Successfully!",
@@ -79,6 +82,8 @@ class JobDetailController extends Controller
 
 
             $jobDetail->save();
+               // events
+   event(new Notifications([$jobDetail,Auth::user()],'jobDetails_updated'));
             return response()->json([
                 "status" => "success",
                 "message" => "Job Details Updated Successfully!",

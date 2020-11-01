@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => 'pusher',
+    'default' => env('BROADCAST_DRIVER', 'pusher'),
 
     /*
     |--------------------------------------------------------------------------
@@ -32,12 +32,12 @@ return [
 
         'pusher' => [
             'driver' => 'pusher',
-            'key' => '12345',
-            'secret' => 'SE123',
-            'app_id' => 'ID123',
+            'key' => env('PUSHER_APP_KEY'),
+            'secret' => env('PUSHER_APP_SECRET'),
+            'app_id' => env('PUSHER_APP_ID'),
             'options' => [
-                // 'cluster' => 'mt1',
-                'encrypted' => true,
+                'cluster' => env('PUSHER_APP_CLUSTER'),
+                'encrypted' => false,
                 'host' => '127.0.0.1',
                 'port' => 6001,
                 'scheme' => 'http'

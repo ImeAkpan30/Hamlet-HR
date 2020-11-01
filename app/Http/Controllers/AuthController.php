@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 
 // use App\Mail\signupMail;
+use App\User;
 use App\Company;
 use App\Profile;
-use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
+use App\Events\Notifications;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use App\User;
 
 class AuthController extends Controller
 {
@@ -45,6 +46,9 @@ class AuthController extends Controller
 
         // login user
         $token = auth()->login($user);
+        
+        // events
+        event(new Notifications($user,'registration'));
 
         //create user profile
         $profile = new Profile();
@@ -86,7 +90,8 @@ class AuthController extends Controller
         if (!$token = auth()->attempt($credentials)) {
           return response()->json(['error' => 'Unauthorized'], 401);
         }
-
+         // events
+         event(new Notifications($request->all(),'Login'));
         return $this->respondWithToken($token);
         }
 
