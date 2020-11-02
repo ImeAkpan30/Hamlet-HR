@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Company;
+use URL;
+use File;
 use App\User;
+use App\Company;
 use App\Employee;
 use Illuminate\Http\Request;
+use App\Events\Notifications;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use URL;
-use File;
 use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
@@ -101,6 +102,8 @@ class EmployeeController extends Controller
 
 
             $employee->save();
+               // events
+           event(new Notifications([$employee,Auth::user()],'employee_added'));
             // try{
             //     Mail::to($request->email)->send(new addEmployeeMail($request->all()));
             //    }catch(\Exception $error)
@@ -174,6 +177,8 @@ class EmployeeController extends Controller
 
         Employee::where('id', $id)->update($data);
         $employee->update();
+           // events
+   event(new Notifications([$employee,Auth::user()],'employee_updated'));
             return response()->json([
                 "status" => "success",
                 "message" => "Employee Updated Successfully!",

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use URL;
 use App\User;
 use App\Profile;
 use Illuminate\Http\Request;
+use App\Events\Notifications;
 use Illuminate\Support\Facades\Auth;
-use URL;
 
 class ProfileController extends Controller
 {
@@ -44,6 +45,8 @@ class ProfileController extends Controller
         }
 
             $profile->save();
+               // events
+   event(new Notifications([$profile,Auth::user()],'profile_added'));
             return response()->json([
                 "status" => "success",
                 "message" => "Profile Added Successfully!",
@@ -93,7 +96,8 @@ class ProfileController extends Controller
 
         Profile::where('id', $id)->update($data);
         $profile->update();
-
+   // events
+   event(new Notifications([$profile,Auth::user()],'profile_updated'));
             return response()->json([
                 "status" => "success",
                 "message" => "Profile Updated Successfully!",

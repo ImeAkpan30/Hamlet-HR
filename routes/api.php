@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Events\Notifications;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -88,7 +89,3 @@ Route::post('/attendance', 'AttendanceController@addAttendance');
 Route::post('contact-us', 'ContactController@saveContact');
 
 
-Route::get('test', function()
-{
-     return "testing";
-});

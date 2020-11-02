@@ -3,25 +3,37 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-class Notifications
+class Notifications implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-     public $data;
+    
+    public $message;
+    public $type;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($message,$type)
     {
-        $this->$data = data;
+        $this->message= $message;
+        $this->type= $type;
+    }
+    public function broadcastWith() {
+        return [
+            'data' => $this->message,
+            'type' => $this->type, 
+            'time' => now()->toDateTimeString(),
+        ];
     }
 
     /**
@@ -31,6 +43,6 @@ class Notifications
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('notification');
+        return new Channel('notify');
     }
 }
