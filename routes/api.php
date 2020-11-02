@@ -48,6 +48,8 @@ Route::get('/admin/ban/users', 'AdminController@getBannedUsers');
 Route::get('/admin/active/users', 'AdminController@getActiveUsers');
 Route::get('/admin/allCompanies', 'AdminController@getAllCompanies');
 Route::get('/admin/company/{email}', 'AdminController@getCompanyByEmail');
+Route::post('/admin/notify/users', 'NotifyController@notifyUsers');
+Route::get('/update/notify', 'NotifyController@getNoticeUpdate');
 
 // Chats
 Route::post('/chat', 'ChatController@chat');
