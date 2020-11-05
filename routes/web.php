@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\Notifications;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +27,18 @@ Route::get('/deploy', function () {
     $rootDir = base_path();
     exec("cd $rootDir && git pull origin master", $output);
     dump($output);
+});
+
+
+
+// testing brodcasting events
+Route::get('/events', function () {
+   return view('Test');
+});
+
+
+Route::get('/test/{p1}/{p2}', function ($p1,$p2) {
+    // "first parameter is the data",'second parameter is just the type of data'
+    event(new Notifications($p1,$p2));
+    dump([$p1,$p2]);
 });

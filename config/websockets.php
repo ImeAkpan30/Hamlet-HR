@@ -8,7 +8,7 @@ return [
      * Set a custom dashboard configuration
      */
     'dashboard' => [
-        'port' => '6001',
+        'port' => env('LARAVEL_WEBSOCKETS_PORT', 6001),
     ],
 
     /*
@@ -21,15 +21,12 @@ return [
      * Optionally you can disable client events so clients cannot send
      * messages to each other via the webSockets.
      */
-
     'apps' => [
         [
-            'id' => '',
+            'id' => env('PUSHER_APP_ID'),
             'name' => env('APP_NAME'),
-            'key' => '12345',
-            'secret' =>'SE123',
-            'path' => env('PUSHER_APP_PATH'),
-            'capacity' => null,
+            'key' => env('PUSHER_APP_KEY'),
+            'secret' => env('PUSHER_APP_SECRET'),
             'enable_client_messages' => true,
             'enable_statistics' => true,
         ],

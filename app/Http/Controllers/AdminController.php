@@ -7,6 +7,7 @@ use App\Admin;
 use App\Company;
 use App\Contact;
 use Illuminate\Http\Request;
+use App\Events\Notifications;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -16,10 +17,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    
 
     public function login(Request $request)
     {

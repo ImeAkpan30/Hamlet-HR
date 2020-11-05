@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Employee;
 use App\ContactInfo;
 use Illuminate\Http\Request;
+use App\Events\Notifications;
 use Illuminate\Support\Facades\Auth;
 
 class ContactInfoController extends Controller
@@ -27,6 +28,8 @@ class ContactInfoController extends Controller
         $contactInfo->emergency_contact = $request->input('emergency_contact');
 
             $contactInfo->save();
+               // events
+         event(new Notifications([$contactInfo,Auth::user()],'contactInfo_added'));
             return response()->json([
                 "status" => "success",
                 "message" => "Contact Info Added Successfully!",
@@ -52,6 +55,8 @@ class ContactInfoController extends Controller
         $contactInfo->emergency_contact = $request->input('emergency_contact');
 
             $contactInfo->save();
+               // events
+   event(new Notifications([$contactInfo,Auth::user()],'ContactInfo_updated'));
             return response()->json([
                 "status" => "success",
                 "message" => "Contact Info Updated Successfully!",

@@ -7,6 +7,7 @@ use App\Company;
 use App\Employee;
 use App\CompanyDepartment;
 use Illuminate\Http\Request;
+use App\Events\Notifications;
 use Illuminate\Support\Facades\Auth;
 
 class CompanyDepartmentController extends Controller
@@ -37,6 +38,8 @@ class CompanyDepartmentController extends Controller
         $companyDept->name = $request->input('name');
         $companyDept->company_id = $company_id;
             $companyDept->save();
+                 // events
+        event(new Notifications([$companyDept,Auth::user()],'companyDepartment_added'));
             return response()->json([
                 "status" => "success",
                 "message" => "Company Department Added Successfully!",
@@ -60,6 +63,8 @@ class CompanyDepartmentController extends Controller
         $companyDept->name = $request->input('name');
         $companyDept->company_id = $company_id;
             $companyDept->save();
+            // events
+   event(new Notifications([$companyDept,Auth::user()],'companyDepartment_updated'));
             return response()->json([
                 "status" => "success",
                 "message" => "Company Department Updated Successfully!",
