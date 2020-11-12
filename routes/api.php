@@ -51,6 +51,7 @@ Route::get('/admin/allCompanies', 'AdminController@getAllCompanies');
 Route::get('/admin/company/{email}', 'AdminController@getCompanyByEmail');
 Route::post('/admin/notify/users', 'NotifyController@notifyUsers');
 Route::get('/update/notify', 'NotifyController@getNoticeUpdate');
+Route::delete('/admin/deleteNotice/{id}', 'NotifyController@deleteNotice');
 
 // Chats
 Route::post('/chat', 'ChatController@chat');

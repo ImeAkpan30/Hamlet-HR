@@ -41,4 +41,13 @@ class NotifyController extends Controller
             'notice' => $notice
         ], 200);
     }
+
+    public function deleteNotice($id)
+    {
+
+        Notify::where('id', $id)->delete();
+        return response()->json([
+            'message' => 'Notification Message Deleted Successfully!'
+        ], 200);
+    }
 }
