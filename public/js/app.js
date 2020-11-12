@@ -55951,8 +55951,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Itoro\Documents\Project\Hamlet-HR\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Itoro\Documents\Project\Hamlet-HR\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\ESTHY PC\Music\Desktop\LARAVEL-PROJECTS\NEW AUTH APPS\hamlet-api\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\ESTHY PC\Music\Desktop\LARAVEL-PROJECTS\NEW AUTH APPS\hamlet-api\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
