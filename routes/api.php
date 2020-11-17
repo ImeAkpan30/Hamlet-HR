@@ -88,5 +88,4 @@ Route::put('/contact-info/{id}', 'ContactInfoController@updateContactInfo');
 Route::post('/attendance', 'AttendanceController@addAttendance');
 
 Route::post('contact-us', 'ContactController@saveContact');
-
-
+ 

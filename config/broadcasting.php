@@ -32,16 +32,18 @@ return [
 
         'pusher' => [
             'driver' => 'pusher',
-            'key' => '12345',
-            'secret' => 'SE12345',
-            'app_id' => 'ID12345',
+            'key' => '107cc11991cdd0475c98',
+            'secret' => 'c50bf7d26f6cd579c3cb',
+            'app_id' => '1091665',
             'options' => [
-                'cluster' => 'mt1',
-                'encrypted' => false,
-                'host' => '127.0.0.1',
-                'port' => 6001,
-                'scheme' => 'http'
+                'cluster' => 'eu',
+                'encrypted' => true,
+                // 'host' => '127.0.0.1',
+                // 'port' => 6001,
+                // 'scheme' => 'http'
             ],
+
+
         ],
 
         'redis' => [
