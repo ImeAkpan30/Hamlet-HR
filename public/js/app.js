@@ -1944,7 +1944,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     test: function test() {
-      axios.get('/test/I want to test/Pusher');
+      axios.get('/test/I want to test/Pusher'); //CODE
     }
   }
 });
@@ -55974,8 +55974,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/ubuntu/hamlet/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/ubuntu/hamlet/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Itoro\Documents\Project\Hamlet-HR\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Itoro\Documents\Project\Hamlet-HR\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
