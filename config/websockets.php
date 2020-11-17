@@ -25,12 +25,13 @@ return [
 
     'apps' => [
         [
-            'id' => 'ID12345',
+            'id' => '1091665',
             'name' => 'Hamlet',
-            'key' => '12345',
-            'secret' => 'SE12345',
+            'key' => '107cc11991cdd0475c98',
+            'secret' => 'c50bf7d26f6cd579c3cb',
             'enable_client_messages' => true,
             'enable_statistics' => true,
+
         ],
     ],
 
