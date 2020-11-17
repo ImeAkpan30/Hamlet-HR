@@ -32,7 +32,7 @@ Route::group([
 });
 
 // Admin Routes
-Route::post('/admin/login', 'AdminController@login');
+Route::post('/admin/login', 'AdminController@login'); 
 Route::post('/admin/logout', 'AdminController@logout');
 Route::get('/admin/profile', 'AdminController@getAdmin');
 Route::get('/admin/users', 'AdminController@getUsers');
@@ -88,4 +88,3 @@ Route::put('/contact-info/{id}', 'ContactInfoController@updateContactInfo');
 Route::post('/attendance', 'AttendanceController@addAttendance');
 
 Route::post('contact-us', 'ContactController@saveContact');
- 
