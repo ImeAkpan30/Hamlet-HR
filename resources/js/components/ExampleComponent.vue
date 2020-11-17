@@ -8,6 +8,9 @@
                     <div class="card-body">
                         I'm an example component. <br>
                         {{ data }}
+
+                        <br>
+                        <a @click="test()" id="" class="btn btn-primary" href="#" role="button">Test Pusher</a>
                     </div>
                 </div>
             </div>
@@ -29,6 +32,12 @@
                console.log(e)
              })
 
+        },
+        methods: {
+            test()
+            {
+                axios.get('/test/I want to test/Pusher')
+            }
         },
 
     }
