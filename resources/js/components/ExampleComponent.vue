@@ -36,7 +36,7 @@
         methods: {
             test()
             {
-                axios.get('/test/I want to test/Pusher')
+                axios.get('/test/I want to test/Pusher')     
             }
         },
 
