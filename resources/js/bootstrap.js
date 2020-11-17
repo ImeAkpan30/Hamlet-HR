@@ -37,5 +37,5 @@ window.Pusher = require('pusher-js');
         broadcaster: 'pusher',
         key: '107cc11991cdd0475c98',
         cluster: 'eu',
-        encrypted: true 
+        encrypted: false
       });

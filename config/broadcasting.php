@@ -37,7 +37,7 @@ return [
             'app_id' => '1091665',
             'options' => [
                 'cluster' => 'eu',
-                'encrypted' => true
+                'encrypted' => false
                 // 'host' => '127.0.0.1',
                 // 'port' => 6001,
                 // 'scheme' => 'http'
