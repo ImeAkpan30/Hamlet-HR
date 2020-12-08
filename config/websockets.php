@@ -21,14 +21,17 @@ return [
      * Optionally you can disable client events so clients cannot send
      * messages to each other via the webSockets.
      */
+
+
     'apps' => [
         [
-            'id' => env('PUSHER_APP_ID'),
-            'name' => env('APP_NAME'),
-            'key' => env('PUSHER_APP_KEY'),
-            'secret' => env('PUSHER_APP_SECRET'),
+            'id' => '1091665',
+            'name' => 'Hamlet',
+            'key' => '107cc11991cdd0475c98',
+            'secret' => 'c50bf7d26f6cd579c3cb',
             'enable_client_messages' => true,
             'enable_statistics' => true,
+
         ],
     ],
 

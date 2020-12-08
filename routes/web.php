@@ -37,8 +37,7 @@ Route::get('/events', function () {
 });
 
 
-Route::get('/test/{p1}/{p2}', function ($p1,$p2) {
-    // "first parameter is the data",'second parameter is just the type of data'
+Route::get('/test/{p1}/{p2}', function ($p1,$p2) { 
     event(new Notifications($p1,$p2));
     dump([$p1,$p2]);
 });
