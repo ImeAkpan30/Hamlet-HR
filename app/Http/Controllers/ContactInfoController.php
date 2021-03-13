@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Employee;
 use App\ContactInfo;
 use Illuminate\Http\Request;
-use App\Events\Notifications;
+
+
+
+
 use Illuminate\Support\Facades\Auth;
 
 class ContactInfoController extends Controller
@@ -64,3 +67,4 @@ class ContactInfoController extends Controller
               ], 200);
     }
 }
+
