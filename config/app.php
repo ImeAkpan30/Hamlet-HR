@@ -183,6 +183,8 @@ return [
          */
         Hamlet\Modules\Auth\AuthServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Unicodeveloper\Paystack\PaystackServiceProvider::class,
+
 
 
     ],
@@ -239,6 +241,7 @@ return [
         'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
         'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
 
 
 
