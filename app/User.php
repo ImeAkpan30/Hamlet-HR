@@ -28,7 +28,7 @@ class User extends Authenticatable implements JWTSubject, BannableContract
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password',
+        'username', 'email', 'password'
     ];
 
     /**
@@ -47,6 +47,8 @@ class User extends Authenticatable implements JWTSubject, BannableContract
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     public function getJWTIdentifier()
