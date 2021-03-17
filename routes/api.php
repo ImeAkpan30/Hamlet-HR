@@ -32,7 +32,7 @@ Route::group([
 });
 
 // Admin Routes
-Route::post('/admin/login', 'AdminController@login'); 
+Route::post('/admin/login', 'AdminController@login');
 Route::post('/admin/logout', 'AdminController@logout');
 Route::get('/admin/profile', 'AdminController@getAdmin');
 Route::get('/admin/users', 'AdminController@getUsers');
@@ -52,6 +52,13 @@ Route::get('/admin/company/{email}', 'AdminController@getCompanyByEmail');
 Route::post('/admin/notify/users', 'NotifyController@notifyUsers');
 Route::get('/update/notify', 'NotifyController@getNoticeUpdate');
 Route::delete('/admin/deleteNotice/{id}', 'NotifyController@deleteNotice');
+
+Route::get('/admin/subscriptions/list',"SubscriptionController@listUserSubscription");
+
+// PLANS ROUTE
+Route::post('/plans', 'PlanController@createPlan');
+Route::put('/plans/{id}', 'PlanController@updateplan');
+Route::delete('/plans/{id}', 'PlanController@deleteplan');
 
 // Chats
 Route::post('/chat', 'ChatController@chat');
@@ -88,3 +95,11 @@ Route::put('/contact-info/{id}', 'ContactInfoController@updateContactInfo');
 Route::post('/attendance', 'AttendanceController@addAttendance');
 
 Route::post('contact-us', 'ContactController@saveContact');
+
+// Plan
+Route::get('plans', 'PlanController@listPlan');
+
+// SUBSCRIPTION
+Route::post('/subscriptions',"SubscriptionController@subscribe");
+Route::get('/subscriptions',"SubscriptionController@mySubscriptions");
+
