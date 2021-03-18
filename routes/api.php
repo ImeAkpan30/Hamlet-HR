@@ -53,6 +53,13 @@ Route::post('/admin/notify/users', 'NotifyController@notifyUsers');
 Route::get('/update/notify', 'NotifyController@getNoticeUpdate');
 Route::delete('/admin/deleteNotice/{id}', 'NotifyController@deleteNotice');
 
+Route::get('/admin/subscriptions/list',"SubscriptionController@listUserSubscription");
+
+// PLANS ROUTE
+Route::post('/plans', 'PlanController@createPlan');
+Route::put('/plans/{id}', 'PlanController@updateplan');
+Route::delete('/plans/{id}', 'PlanController@deleteplan');
+
 // Chats
 Route::post('/chat', 'ChatController@chat');
 Route::get('/chat/view/{chat}', 'ChatController@view');
@@ -93,4 +100,11 @@ Route::post('contact-us', 'ContactController@saveContact');
 // paystack
 Route::post('/subscribe', 'PaymentController@redirectToGateway')->name('pay');
 Route::get('/payment/callback', 'PaymentController@handleGatewayCallback');
+
+// Plan
+Route::get('plans', 'PlanController@listPlan');
+
+// SUBSCRIPTION
+Route::post('/subscriptions',"SubscriptionController@subscribe");
+Route::get('/subscriptions',"SubscriptionController@mySubscriptions");
 

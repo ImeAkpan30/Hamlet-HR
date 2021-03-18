@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Paystack;
+use App\Payment;
+use App\Subscription;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -33,14 +35,24 @@ class PaymentController extends Controller
         ]);
           
         $date=request()->duration * 30; //get the month and make it days
-        $newDate=now()->addDays($date); //callculate expired date from retrieved month 
+        $newDate=now()->addDays($date); //callculate expired date from retrieved month  
+        $plan = Plan::where("id", $data->plan_id)->first(); //get and retrive plan
 
+        if (!$plan){
+            return [
+                "status_code" => 404,
+                "message" => "Plan not found"
+            ];
+        }
+
+        $amount = ($plan->price * $data->duration);
+        dd($amount);
         // create a subscribtion plan with pending status  
         Subscription::create([
            'user_id'=>request()->user_id,
            'plan_id'=>request()->plan_id, 
            'duration'=>request()->duration, 
-           'amount'=>request()->amount, 
+           'amount'=>$amount, 
            'start_at'=>now(), 
            'expired_at'=>$newDate, 
            'status'=>'pending',   
@@ -77,7 +89,7 @@ class PaymentController extends Controller
         ->where('id',Auth::user()->id)
         ->subscription();
         // Store Payment  
-        PaymentDetail::create([
+        Payment::create([
             'user_id'=>$data->data->metadata['user_id'],
             'type'=> $data->data->metadata['type'],
             'type_id'=>$type_id->last()->id,
@@ -116,7 +128,7 @@ class PaymentController extends Controller
             'status'=>'required', 
             'transaction_date'=>'required',
         ]);
-        $payment=PaymentDetail::create([
+        $payment=Payment::create([
             'user_id'=>Auth::user()->id,
             'reference'=>$data['reference'],
             'currency'=>$data['currency'],

@@ -8,6 +8,7 @@ use App\Company;
 use App\Contact;
 use App\Profile;
 use App\Employee;
+use App\Subscription;
 use Cog\Laravel\Ban\Traits\Bannable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
@@ -85,4 +86,9 @@ class User extends Authenticatable implements JWTSubject, BannableContract
     {
         return $this->hasMany(Chat::class);
     }
+
+    public function subscriptions(){
+        return $this->hasMany(Subscription::class,'user_id');
+    }
+
 }
