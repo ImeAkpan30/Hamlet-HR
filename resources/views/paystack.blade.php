@@ -36,8 +36,8 @@
                 <input type="hidden" name="metadata"
                 value="{{ json_encode($array = [   
                     'username' => 'itororo',
-                    'user_id' => 1,
-                    'type_id' => 1,
+                    'user_id' => 56,
+                    'plan_id' => 1,
                     'type' => 'stater',
                 ]) }}" > 
                 {{-- For other necessary things you want to add to your payload. it is optional though --}}

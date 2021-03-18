@@ -81,6 +81,7 @@ class User extends Authenticatable implements JWTSubject, BannableContract
     {
         return $this->hasMany(Contact::class);
     }
+    
 
     public function chats()
     {

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Plan;
 use App\User;
+use App\Subscription;
 use Illuminate\Database\Eloquent\Model;
 
 class Subscription extends Model
@@ -25,7 +26,7 @@ class Subscription extends Model
 
     public function plan(){
         return $this->belongsTo(Plan::class,"plan_id");
-    }
+    } 
 
     public function scopeOfUser($query){
 

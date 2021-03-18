@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Plan;
+use App\User;
 use Paystack;
 use App\Payment;
 use App\Subscription;
@@ -36,7 +38,7 @@ class PaymentController extends Controller
           
         $date=request()->duration * 30; //get the month and make it days
         $newDate=now()->addDays($date); //callculate expired date from retrieved month  
-        $plan = Plan::where("id", $data->plan_id)->first(); //get and retrive plan
+        $plan = Plan::where("id", request()->plan_id)->first(); //get and retrive plan
 
         if (!$plan){
             return [
@@ -45,8 +47,8 @@ class PaymentController extends Controller
             ];
         }
 
-        $amount = ($plan->price * $data->duration);
-        dd($amount);
+        $amount = ($plan->price * request()->duration); 
+
         // create a subscribtion plan with pending status  
         Subscription::create([
            'user_id'=>request()->user_id,
@@ -74,7 +76,7 @@ class PaymentController extends Controller
     public function handleGatewayCallback()
     {
         // Retrive Payment Details from paystack
-        $paymentDetails = Paystack::getPaymentData();
+        $paymentDetails = Paystack::getPaymentData();  
         $this->UpdatePayment($paymentDetails);
     }
 
@@ -85,36 +87,34 @@ class PaymentController extends Controller
      */
     public function UpdatePayment($data)
     {   
-        $type_id=User::where('id',$data->data->metadata['user_id'])
-        ->where('id',Auth::user()->id)
-        ->subscription();
+        
+       
+        return redirect('/url');
+        $metadata=$data['data']['metadata']; 
+        $type_id=Subscription::where('user_id',$metadata['user_id'])
+        ->orderBy('id', 'desc')
+        ->first()->id; 
+        
         // Store Payment  
-        Payment::create([
-            'user_id'=>$data->data->metadata['user_id'],
-            'type'=> $data->data->metadata['type'],
-            'type_id'=>$type_id->last()->id,
-            'reference'=>$data->data['reference'],
-            'currency'=>$data->data['currency'],
-            'chanel'=>$data->data['channel'],
-            'amount'=>$data->data['amount'],
-            'status'=>$data->data['status'], 
-            'getway'=>"PAYSTACK", 
-            'transaction_date'=>$data->data['transaction_date'],
+        $payment= Payment::create([
+            'user_id'=>$metadata['user_id'],
+            'type'=> $metadata['type'],
+            'type_id'=>$type_id,
+            'reference'=>$data['data']['reference'],
+            'currency'=>$data['data']['currency'],
+            'channel'=>$data['data']['channel'],
+            'amount'=>$data['data']['amount'],
+            'status'=>$data['data']['status'], 
+            'gateway'=>"PAYSTACK", 
+            'transaction_date'=>$data['data']['transaction_date'],
         ]);
  
           // update the subscribtion plan previously created with active status
-          Subscription::where('user_id',$data->data->metadata['user_id'])
+          Subscription::where('user_id',$metadata['user_id'])
           ->update([
             'status'=>'active'
-          ]); 
+          ]);  
 
-          $info=[
-            'payment_status'=>$payment,
-            'message'=>"succesful",
-        ];
-          return response()->json($info, 200);
-        
-        //  return redirect('some/url');
     }
 
     public function UpdatePaymentMobile(Request $data)
