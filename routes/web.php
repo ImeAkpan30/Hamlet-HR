@@ -45,8 +45,5 @@ Route::get('/test/{p1}/{p2}', function ($p1,$p2) {
     event(new Notifications($p1,$p2));
     dump([$p1,$p2]);
 });
-
-// paystack
-Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
-Route::get('/payment/callback', 'PaymentController@handleGatewayCallback');
-
+ 
+ 

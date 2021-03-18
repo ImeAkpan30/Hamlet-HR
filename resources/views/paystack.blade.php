@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="POST" action="/api/pay" accept-charset="UTF-8" class="form-horizontal" role="form">
+    <form method="POST" action="/api/subscribe" accept-charset="UTF-8" class="form-horizontal" role="form">
         <div class="row" style="margin-bottom:40px;">
             <div class="col-md-8 col-md-offset-2 ">
                 <p>
@@ -25,16 +25,20 @@
                         </div>
                     </div>
                 </p>
-                <input type="text" class="form-control" name="email" value="otemuyiwa@gmail.com"> {{-- required --}}
-                <input type="number"class="form-control"  name="order_id
-                " value="345">
-                <input type="text"class="form-control"  name="fname" value="itoro">
-                <input type="text"class="form-control"  name="sname" value="philip">
+                <input type="text" class="form-control" name="email" value="otemuyiwa@gmail.com"> {{-- required --}} 
                 <input type="text"class="form-control"  name="phone" value="09025614561">
                 <input type="number" name="amount" value="800"> {{-- required in kobo --}}
                 <input type="hidden" name="quantity" value="1">
-                <input type="hidden" name="currency" value="NGN">
-                <input type="hidden" name="metadata" value="{{ json_encode($array = ['key_name' => 'value',]) }}" > {{-- For other necessary things you want to add to your payload. it is optional though --}}
+                <input type="hidden" name="currency" value="NGN"> <br/>
+                <input type="text" name="duration" value="10" placeholder="How many month"><br/>
+                <input type="hidden" name="metadata"
+                value="{{ json_encode($array = [   
+                    'username' => 'itororo',
+                    'user_id' => 1,
+                    'type_id' => 1,
+                    'type' => 'stater',
+                ]) }}" > 
+                {{-- For other necessary things you want to add to your payload. it is optional though --}}
                 <input type="hidden" name="reference" value="{{ Paystack::genTranxRef() }}"> {{-- required --}}
                 {{ csrf_field() }} {{-- works only when using laravel 5.1, 5.2 --}}
 

@@ -91,6 +91,6 @@ Route::post('contact-us', 'ContactController@saveContact');
 
 
 // paystack
-Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
+Route::post('/subscribe', 'PaymentController@redirectToGateway')->name('pay');
 Route::get('/payment/callback', 'PaymentController@handleGatewayCallback');
 

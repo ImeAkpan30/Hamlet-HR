@@ -2,28 +2,57 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
 use Paystack;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect; 
 
 class PaymentController extends Controller
 {
 
+    // public function __construct() {
+    //     $this->middleware('auth:api');
+    // }
     /**
      * Redirect the User to Paystack Payment Page
      * @return Url
      */
-    public function redirectToGateway(Request $request)
+    public function redirectToGateway()
     {
+         if(request()->metadata)  
+         
+        // validate subscribtion data   
+        $this->validate(request(),[ 
+            'plan_id'=>'required|integer',   
+            'amount'=>'required|integer', 
+            'duration'=>'required|integer', 
+            'user_id'=>'required|integer', 
+        ]);
+          
+        $date=request()->duration * 30; //get the month and make it days
+        $newDate=now()->addDays($date); //callculate expired date from retrieved month 
 
-        try{
-            return Paystack::getAuthorizationUrl()->redirectNow();
+        // create a subscribtion plan with pending status  
+        Subscription::create([
+           'user_id'=>request()->user_id,
+           'plan_id'=>request()->plan_id, 
+           'duration'=>request()->duration, 
+           'amount'=>request()->amount, 
+           'start_at'=>now(), 
+           'expired_at'=>$newDate, 
+           'status'=>'pending',   
+        ]);
+
+        // Redirect to Payment URL Paystack
+        try{ 
+            return Paystack::getAuthorizationUrl()->redirectNow(); 
         }catch(\Exception $e) {
             return Redirect::back()->withMessage(['msg'=>'The paystack token has expired. Please refresh the page and try again.', 'type'=>'error']);
-        }
+        
+       }
     }
 
     /**
@@ -32,12 +61,83 @@ class PaymentController extends Controller
      */
     public function handleGatewayCallback()
     {
+        // Retrive Payment Details from paystack
         $paymentDetails = Paystack::getPaymentData();
+        $this->UpdatePayment($paymentDetails);
+    }
 
-        dd($paymentDetails);
-        // Now you have the payment details,
-        // you can store the authorization_code in your db to allow for recurrent subscriptions
-        // you can then redirect or do whatever you want
+
+     /**
+     * save Paystack payment information in database
+     * @return void
+     */
+    public function UpdatePayment($data)
+    {   
+        $type_id=User::where('id',$data->data->metadata['user_id'])
+        ->where('id',Auth::user()->id)
+        ->subscription();
+        // Store Payment  
+        PaymentDetail::create([
+            'user_id'=>$data->data->metadata['user_id'],
+            'type'=> $data->data->metadata['type'],
+            'type_id'=>$type_id->last()->id,
+            'reference'=>$data->data['reference'],
+            'currency'=>$data->data['currency'],
+            'chanel'=>$data->data['channel'],
+            'amount'=>$data->data['amount'],
+            'status'=>$data->data['status'], 
+            'getway'=>"PAYSTACK", 
+            'transaction_date'=>$data->data['transaction_date'],
+        ]);
+ 
+          // update the subscribtion plan previously created with active status
+          Subscription::where('user_id',$data->data->metadata['user_id'])
+          ->update([
+            'status'=>'active'
+          ]); 
+
+          $info=[
+            'payment_status'=>$payment,
+            'message'=>"succesful",
+        ];
+          return response()->json($info, 200);
+        
+        //  return redirect('some/url');
+    }
+
+    public function UpdatePaymentMobile(Request $data)
+    {
+        // get and store Payment from Mobile Paystack API's....
+        $this->validate($data,[
+            'reference'=>'required',
+            'currency'=>'required',
+            'chanel'=>'required',
+            'amount'=>'required',
+            'status'=>'required', 
+            'transaction_date'=>'required',
+        ]);
+        $payment=PaymentDetail::create([
+            'user_id'=>Auth::user()->id,
+            'reference'=>$data['reference'],
+            'currency'=>$data['currency'],
+            'type'=>$data->metadata['type'],
+            'type_id'=> $data->metadata['type_id'],
+            'chanel'=>$data['channel'],
+            'amount'=>$data['amount'],
+            'status'=>$data['status'], 
+            'getway'=>"PAYSTACK",  
+            'transaction_date'=>$data['transaction_date'],
+        ]);
+          // update the subscribtion plan previously created with active status
+          Subscription::where('user_id',$data->data->metadata['user_id'])
+          ->update([
+            'status'=>'active'
+          ]); 
+        $info=[
+            'payment_status'=>$payment,
+            'message'=>"succesful",
+        ];
+        return response()->json($info, 200);
     }
 }
 
