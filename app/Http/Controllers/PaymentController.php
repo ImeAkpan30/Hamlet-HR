@@ -62,12 +62,12 @@ class PaymentController extends Controller
         ]);
 
         // Redirect to Payment URL Paystack
-        // try{ 
+        try{ 
             return Paystack::getAuthorizationUrl()->redirectNow(); 
-    //     }catch(\Exception $e) {
-    //         return Redirect::back()->withMessage(['msg'=>'The paystack token has expired. Please refresh the page and try again.', 'type'=>'error']);
+        }catch(\Exception $e) {
+            return Redirect::back()->withMessage(['msg'=>'The paystack token has expired. Please refresh the page and try again.', 'type'=>'error']);
         
-    //    }
+       }
     }
 
     /**
@@ -77,8 +77,7 @@ class PaymentController extends Controller
     public function handleGatewayCallback()
     {
         // Retrive Payment Details from paystack
-        $paymentDetails = Paystack::getPaymentData();  
-        dd( $paymentDetails);
+        $paymentDetails = Paystack::getPaymentData();   
         $this->UpdatePayment($paymentDetails);
     }
 
