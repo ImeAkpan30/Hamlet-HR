@@ -26,8 +26,9 @@ class PaymentController extends Controller
      */
     public function redirectToGateway()
     {
-         if(request()->metadata)  
-         
+          
+        if(request()->metadata)  
+        
         // validate subscribtion data   
         $this->validate(request(),[ 
             'plan_id'=>'required|integer',   
@@ -88,8 +89,7 @@ class PaymentController extends Controller
     public function UpdatePayment($data)
     {   
         
-       
-        return redirect('/url');
+        
         $metadata=$data['data']['metadata']; 
         $type_id=Subscription::where('user_id',$metadata['user_id'])
         ->orderBy('id', 'desc')
@@ -98,7 +98,7 @@ class PaymentController extends Controller
         // Store Payment  
         $payment= Payment::create([
             'user_id'=>$metadata['user_id'],
-            'type'=> $metadata['type'],
+            'type'=> 'Subscription',
             'type_id'=>$type_id,
             'reference'=>$data['data']['reference'],
             'currency'=>$data['data']['currency'],
@@ -132,7 +132,7 @@ class PaymentController extends Controller
             'user_id'=>Auth::user()->id,
             'reference'=>$data['reference'],
             'currency'=>$data['currency'],
-            'type'=>$data->metadata['type'],
+            'type'=> 'Subscription',
             'type_id'=> $data->metadata['type_id'],
             'chanel'=>$data['channel'],
             'amount'=>$data['amount'],

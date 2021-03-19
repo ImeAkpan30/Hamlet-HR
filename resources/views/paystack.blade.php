@@ -33,12 +33,10 @@
                 <input type="text" name="duration" value="10" placeholder="How many month"> Duration<br/>
                 <input type="text" name="plan_id" value="2" placeholder="PLan id"> plan_id<br/>
                 <input type="text" name="user_id" value="2" placeholder="User id"> user_id<br/>
-                <input type="hidden" name="metadata"
-                value="{{ json_encode($array = [   
-                    'username' => 'itororo',
+                <input type="hidden" name="metadata"   value="{{ json_encode($array = 
+                [   
                     'user_id' => 56,
-                    'plan_id' => 1,
-                    'type' => 'stater',
+                    'plan_id' => 1
                 ]) }}" > 
                 {{-- For other necessary things you want to add to your payload. it is optional though --}}
                 <input type="hidden" name="reference" value="{{ Paystack::genTranxRef() }}"> {{-- required --}}
