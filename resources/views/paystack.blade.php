@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
+ 
     <form method="POST" action="/subscribe" accept-charset="UTF-8" class="form-horizontal" role="form">
         <div class="row" style="margin-bottom:40px;">
             <div class="col-md-8 col-md-offset-2 ">

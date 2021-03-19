@@ -24,6 +24,7 @@
         "laravel/ui": "^2.4",
         "league/fractal": "^0.19.2",
         "pusher/pusher-php-server": "^4.0",
+        "spatie/laravel-webhook-client": "^2.7",
         "tymon/jwt-auth": "^1.0",
         "unicodeveloper/laravel-paystack": "^1.0"
     },

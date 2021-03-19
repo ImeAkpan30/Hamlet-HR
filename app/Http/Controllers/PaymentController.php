@@ -11,6 +11,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect; 
 
@@ -78,7 +79,14 @@ class PaymentController extends Controller
     {
         // Retrive Payment Details from paystack
         $paymentDetails = Paystack::getPaymentData();   
-        $this->UpdatePayment($paymentDetails);
+        $payment= $this->UpdatePayment($paymentDetails);
+        $info=[
+            'payment_status'=>$payment,
+            'message'=>"succesful",
+            'redirect'=>"succesful",
+        ];
+        return Redirect::to('/paystack#'.$info['redirect'])->withMessage(['msg'=>'The paystack token has expired. Please refresh the page and try again.']); //redirect to frontend
+
     }
 
 
@@ -88,7 +96,7 @@ class PaymentController extends Controller
      */
     public function UpdatePayment($data)
     {   
-        
+         
         
         $metadata=$data['data']['metadata']; 
         $type_id=Subscription::where('user_id',$metadata['user_id'])
@@ -115,8 +123,7 @@ class PaymentController extends Controller
           ->where('id',$type_id->id)
           ->update([
             'status'=>'active'
-          ]);  
-
+          ]);   
     }
 
     public function UpdatePaymentMobile(Request $data)
