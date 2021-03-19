@@ -112,7 +112,7 @@ class PaymentController extends Controller
  
           // update the subscribtion plan previously created with active status
           Subscription::where('user_id',$metadata['user_id'])
-          ->where('type_id',$type_id->id)
+          ->where('id',$type_id->id)
           ->update([
             'status'=>'active'
           ]);  
