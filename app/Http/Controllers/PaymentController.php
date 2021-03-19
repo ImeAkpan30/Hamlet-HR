@@ -93,13 +93,13 @@ class PaymentController extends Controller
         $metadata=$data['data']['metadata']; 
         $type_id=Subscription::where('user_id',$metadata['user_id'])
         ->orderBy('id', 'desc')
-        ->first()->id; 
+        ->first();  
         
         // Store Payment  
         $payment= Payment::create([
             'user_id'=>$metadata['user_id'],
             'type'=> 'Subscription',
-            'type_id'=>$type_id,
+            'type_id'=>$type_id->id,
             'reference'=>$data['data']['reference'],
             'currency'=>$data['data']['currency'],
             'channel'=>$data['data']['channel'],
