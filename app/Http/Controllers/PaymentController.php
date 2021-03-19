@@ -94,6 +94,7 @@ class PaymentController extends Controller
         $type_id=Subscription::where('user_id',$metadata['user_id'])
         ->orderBy('id', 'desc')
         ->first();  
+    
         
         // Store Payment  
         $payment= Payment::create([
