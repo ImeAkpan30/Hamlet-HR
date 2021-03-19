@@ -49,5 +49,6 @@ Route::get('/test/{p1}/{p2}', function ($p1,$p2) {
 // paystack
 Route::post('/subscribe', 'PaymentController@redirectToGateway')->name('pay');
 Route::get('/payment/callback', 'PaymentController@handleGatewayCallback');
+Route::get('/payment/webhook', 'PaymentController@handleGatewayCallback');
 
  
