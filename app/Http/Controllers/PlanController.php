@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Plan;
 use function ucfirst;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreatePlanRequest;
 use App\Http\Requests\UpdatePlanRequest;
 
